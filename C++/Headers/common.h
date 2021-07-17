@@ -2,8 +2,8 @@
 // Created by BrandonZu on 2021/7/17.
 //
 
-#ifndef LEETCODE_STL_H
-#define LEETCODE_STL_H
+#ifndef LEETCODE_COMMON_H
+#define LEETCODE_COMMON_H
 
 #include<vector>
 #include<list>
@@ -12,8 +12,13 @@
 #include<deque>
 #include<unordered_map>
 #include<unordered_set>
+
 #include<algorithm>
+
+#include<string>
+
+#include<iostream>
 
 using namespace std;
 
-#endif //LEETCODE_STL_H
+#endif //LEETCODE_COMMON_H
