@@ -3,7 +3,7 @@
 //
 
 #include "common.h"
-#include "LinkedListNode.h"
+#include "ListNode.h"
 
 // Runtime 20ms(>83%) | Memory Cost 15MB(>78%)
 class Solution {

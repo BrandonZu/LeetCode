@@ -2,7 +2,7 @@
 // Created by BrandonZu on 2021/7/17.
 //
 
-#include "LinkedListNode.h"
+#include "ListNode.h"
 #include "common.h"
 
 // Runtime 4ms(>100%) | Memory Usage 7.5MB(>90%)

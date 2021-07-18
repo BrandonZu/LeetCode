@@ -3,7 +3,7 @@
 //
 
 #include "common.h"
-#include "LinkedListNode.h"
+#include "ListNode.h"
 
 class MyLinkedList {
     int size;

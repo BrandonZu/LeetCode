@@ -2,8 +2,8 @@
 // Created by BrandonZu on 2021/7/17.
 //
 
-#ifndef LEETCODE_LINKEDLISTNODE_H
-#define LEETCODE_LINKEDLISTNODE_H
+#ifndef LEETCODE_LISTNODE_H
+#define LEETCODE_LISTNODE_H
 
 struct ListNode {
     int val;
@@ -13,4 +13,4 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-#endif //LEETCODE_LINKEDLISTNODE_H
+#endif //LEETCODE_LISTNODE_H
