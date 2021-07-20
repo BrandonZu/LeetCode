@@ -18,7 +18,7 @@ public:
                 r = mid - 1;
         }
         int peak = l;
-        // Attention! This includes the side case when nums.size == 1
+        // Attention! This comparison includes the corner case where nums.size == 1
         if(target >= nums[0])
             l = 0, r = peak;
         else
