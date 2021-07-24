@@ -6,15 +6,13 @@ using namespace std;
 
 vector<string> stringSplit(const string& str, const string& deli) {
     vector<string> result;
-    if(str.empty()) {
-        return result;
-    }
+    if(str.empty()) return result;
     string tmp = str + deli;
     size_t pos = tmp.find(deli);
     size_t pre = 0;
     while(pos != string::npos) {
         result.push_back(tmp.substr(pre, pos - pre));
-        pre = pos + 1;
+        pre = pos + deli.size();
         pos = tmp.find(deli, pos + 1);
     }
 
@@ -32,10 +30,10 @@ vector<string> stringSplit(const string& str, const char& deli) {
 }
 
 int main() {
-    string str = "1,2,3,4,,5";
-    string deli = ",";
-    vector<string> res = stringSplit(str, deli, ',');
-    cout << res.size() << endl;
+    string str = "1,,2,,3,,4,,5";
+    string deli = ",,";
+    vector<string> res = stringSplit(str, deli);
+    cout << "size: " << res.size() << endl;
     for(string ss: res) {
         if(ss.empty())
             cout << "empty!!" << endl;
