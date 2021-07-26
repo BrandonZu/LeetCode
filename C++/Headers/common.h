@@ -21,5 +21,6 @@
 #include<iostream>
 
 using namespace std;
+#define FAST_IOSTREAM ios_base::sync_with_stdio(false);
 
 #endif //LEETCODE_COMMON_H

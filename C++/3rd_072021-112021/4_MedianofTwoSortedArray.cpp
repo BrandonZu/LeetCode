@@ -8,6 +8,8 @@ class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         int sz1 = nums1.size(), sz2 = nums2.size();
-
+        int l = getKth();
     }
+
+    int getKth(vector<int>& nums1, vector<int>& nums2, )
 };
