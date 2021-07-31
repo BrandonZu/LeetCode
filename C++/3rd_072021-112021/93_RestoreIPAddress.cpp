@@ -6,7 +6,6 @@
 
 class Solution {
     vector<string> result;
-    string path;
 public:
     void dfs(const string& s, int pos, int cnt) {
         if(cnt == 4) {
@@ -30,7 +29,6 @@ public:
     }
 
     vector<string> restoreIpAddresses(string s) {
-        s.
         dfs(s, 0, 0);
         return result;
     }
