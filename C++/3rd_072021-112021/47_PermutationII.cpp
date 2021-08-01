@@ -38,3 +38,34 @@ public:
         return result;
     }
 };
+
+// Runtime 8ms(>72%) | Memory Usage 8.8MB(>75%)
+class Review1 {
+    vector<vector<int>> result;
+    vector<int> path;
+    vector<bool> visited;
+public:
+    void backtrack(const vector<int>& nums) {
+        if(path.size() == nums.size())  {
+            result.push_back(path);
+            return;
+        }
+
+        for(int i = 0; i < nums.size(); i++) {
+            if(visited[i]) continue;
+            if(i > 0 && nums[i - 1] == nums[i] && !visited[i - 1]) continue;
+            path.push_back(nums[i]);
+            visited[i] = true;
+            backtrack(nums);
+            visited[i] = false;
+            path.pop_back();
+        }
+    }
+
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        visited.resize(nums.size(), false);
+        sort(nums.begin(), nums.end());
+        backtrack(nums);
+        return result;
+    }
+};
