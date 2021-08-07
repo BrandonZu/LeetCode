@@ -27,3 +27,25 @@ public:
         return result;
     }
 };
+
+// 1st Review 2021/8/6
+class Solution_Review1 {
+    vector<vector<int>> result;
+    vector<int> path;
+public:
+    void backtrack(int n, int k, int start) {
+        if(k == 0) {
+            result.push_back(path);
+            return;
+        }
+        for(int i = start; i <= n; i++) {
+            path.push_back(i);
+            backtrack(n, k - 1, i + 1);
+            path.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        backtrack(n, k, 1);
+        return result;
+    }
+};

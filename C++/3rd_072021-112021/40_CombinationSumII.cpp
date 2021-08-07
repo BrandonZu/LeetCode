@@ -38,3 +38,28 @@ public:
         return result;
     }
 };
+
+// 1st Review 2021/8/6
+class Solution_Review1 {
+    vector<vector<int>> result;
+    vector<int> path;
+public:
+    void backtrack(vector<int>& nums, int start, int target) {
+        if(target <= 0) {
+            if(target == 0)
+                result.push_back(path);
+            return;
+        }
+        for(int i = start; i < nums.size(); i++) {
+            path.push_back(nums[i]);
+            backtrack(nums, i, target - nums[i]);
+            path.pop_back();
+        }
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        backtrack(candidates, 0, target);
+        return result;
+    }
+};
+};
