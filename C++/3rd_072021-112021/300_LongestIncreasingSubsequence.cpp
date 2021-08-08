@@ -21,3 +21,29 @@ public:
         return res;
     }
 };
+
+// Runtime 8ms(>92%) | Memory Usage 10.6MB(14%)
+class Solution_Optimized1 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp(nums.size() + 1);
+        int max_len = 0;
+        dp[0] = INT_MIN;
+        for(int i = 0; i < nums.size(); i++) {
+            // Binary Search
+            int l = 0, r = max_len;
+            while(l < r) {
+                int mid = (l + r + 1) >> 1;
+                if(dp[mid] < nums[i]) {
+                    l = mid;
+                }
+                else {
+                    r = mid - 1;
+                }
+            }
+            dp[l + 1] = nums[i];
+            max_len = max(max_len, l + 1);
+        }
+        return max_len;
+    }
+};
