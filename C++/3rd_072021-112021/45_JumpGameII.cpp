@@ -39,3 +39,21 @@ public:
         return step;
     }
 };
+
+// 1st Review 08/14/2021
+// Runtime 11ms(>88%) | Memory Usage 16.4MB(>64%)
+class Solution_R1 {
+public:
+    int jump(vector<int>& nums) {
+        int l = 0, r = 0, maxJump = 0;
+        int res = 0;
+        while(r < (int)nums.size() - 1) {
+            res++;
+            for(int i = l; i <= r; i++)
+                maxJump = max(maxJump, i + nums[i]);
+            l = r + 1;
+            r = maxJump;
+        }
+        return res;
+    }
+};

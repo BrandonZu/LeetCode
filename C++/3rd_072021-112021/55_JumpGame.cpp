@@ -19,3 +19,18 @@ public:
         return max_jump >= nums.size() - 1;
     }
 };
+
+// 1st Review 08/13/2021
+// Runtime 56ms(>77%) | Memory Usage 48.4MB(>42%)
+class Solution_R1 {
+public:
+    bool canJump(vector<int>& nums) {
+        int maxPos = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            if(i > maxPos)
+                return false;
+            maxPos = max(maxPos, i + nums[i]);
+        }
+        return maxPos >= nums.size() - 1;
+    }
+};
