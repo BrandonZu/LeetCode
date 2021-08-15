@@ -22,7 +22,7 @@ public:
     }
 };
 
-// Runtime 8ms(>92%) | Memory Usage 10.6MB(14%)
+// Runtime 8ms(>92%) | Memory Usage 10.6MB(>14%)
 class Solution_Optimized1 {
 public:
     int lengthOfLIS(vector<int>& nums) {
@@ -45,5 +45,31 @@ public:
             max_len = max(max_len, l + 1);
         }
         return max_len;
+    }
+};
+
+// 1st Review 8/15/2021
+// Runtime 4ms(>99%) | Memory Usage 10.6MB(>14%)
+class Solution_R1 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp(nums.size() + 1, INT_MAX);
+        dp[0] = INT_MIN;
+        int maxLen = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            int l = 0, r = maxLen;
+            while(l < r) {
+                int mid = l + r + 1 >> 1;
+                if(dp[mid] < nums[i]) {
+                    l = mid;
+                }
+                else {
+                    r = mid - 1;
+                }
+            }
+            maxLen = max(maxLen, l + 1);
+            dp[l + 1] = nums[i];
+        }
+        return maxLen;
     }
 };
