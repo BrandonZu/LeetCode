@@ -2,19 +2,9 @@
 // Created by BrandonZu on 2021/7/12.
 //
 
-#include "iostream"
-#include "vector"
-#include "queue"
+#include "common.h"
+#include "TreeNode.h"
 using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 
 // Runtime 4ms(>99%) | Memory Cost 21.7MB(>65%)
 class Solution {
@@ -30,5 +20,26 @@ public:
             return false;
 
         return isValidBST(root->right);
+    }
+};
+
+// 1st Review 08/23/2021
+// Runtime 4ms(>99%) | Memory Cost 21.8MB(>32%)
+class Solution_R1 {
+    TreeNode* pre;
+public:
+    bool isValidBST(TreeNode* root) {
+        if(!root) return true;
+
+        if(!isValidBST(root->left))
+            return false;
+
+        if(pre && pre->val >= root->val)
+            return false;
+        pre = root;
+
+        if(!isValidBST(root->right))
+            return false;
+        return true;
     }
 };
