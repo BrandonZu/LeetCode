@@ -4,7 +4,6 @@
 
 #include "common.h"
 
-
 // dp[i][j] 表示 s[i ... j] 中未被匹配的 ( 数量
 // dp[i][j] == 0 -> valid parentheses
 class Solution {
