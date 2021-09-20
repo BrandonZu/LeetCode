@@ -4,7 +4,6 @@
 
 #include "common.h"
 
-
 // DP
 // s[i] == t[j] -> dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
 // s[i] != t[j] -> dp[i][j] = dp[i - 1][j]

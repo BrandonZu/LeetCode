@@ -2,14 +2,14 @@
 // Created by BrandonZu on 2021/7/7.
 //
 
-#include "stack"
+#include "common.h"
 using namespace std;
 
 class MinStack_1 {
     stack<int> origin_num, min_num;
 public:
     /** initialize your data structure here. */
-    MinStack() {
+    MinStack_1() {
     }
 
     void push(int val) {
@@ -37,11 +37,11 @@ public:
     }
 };
 
-class MinStack {
+class MinStack_2 {
     stack<pair<int, int>> myStack;
 public:
     /** initialize your data structure here. */
-    MinStack() {
+    MinStack_2() {
 
     }
 
@@ -64,5 +64,36 @@ public:
 
     int getMin() {
         return myStack.top().second;
+    }
+};
+
+// 1st Review 09/19/2021
+// Runtime 27ms(>31%) | Memory Cost 16.4MB(>34%)
+class MinStack_Review {
+    stack<int> s;
+    stack<int> min_s;
+public:
+    MinStack_Review() {}
+
+    void push(int val) {
+        if(min_s.empty() || val <= min_s.top()) {
+            min_s.push(val);
+        }
+        s.push(val);
+    }
+
+    void pop() {
+        if(!min_s.empty() && s.top() == min_s.top()) {
+            min_s.pop();
+        }
+        s.pop();
+    }
+
+    int top() {
+        return s.top();
+    }
+
+    int getMin() {
+        return min_s.top();
     }
 };
