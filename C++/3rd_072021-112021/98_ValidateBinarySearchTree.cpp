@@ -43,3 +43,24 @@ public:
         return true;
     }
 };
+
+// 2nd Review 09/21/21
+// Runtime 12ms(>66%) | Memory Cost 21.7MB(>70%)
+class Solution_R2 {
+    TreeNode* pre = nullptr;
+public:
+    bool isValidBST(TreeNode* root) {
+        if(!root) return true;
+        if(!isValidBST(root->left))
+            return false;
+
+        if(pre && root->val <= pre->val)
+            return false;
+        pre = root;
+
+        if(!isValidBST(root->right))
+            return false;
+
+        return true;
+    }
+};
