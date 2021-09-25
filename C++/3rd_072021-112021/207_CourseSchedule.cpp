@@ -37,3 +37,43 @@ public:
         return true;
     }
 };
+
+// 1st Review
+// Runtime 20ms(>78%) | Memory Usage 13.8MB(>65%)
+class Solution_R1 {
+    // 0: Unvisited  1: Visiting  2: Visited
+    vector<int> status;
+    vector<vector<int>> adj;
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        adj.resize(numCourses);
+        status.resize(numCourses, 0);
+        for(auto& req: prerequisites) {
+            adj[req[0]].push_back(req[1]);
+        }
+        for(int i = 0; i < numCourses; i++) {
+            if(status[i] != 0) {
+                continue;
+            }
+            if(!dfs(i))
+                return false;
+        }
+        return true;
+    }
+
+    bool dfs(int cur) {
+        for(int node: adj[cur]) {
+            if(status[node] == 2)
+                continue;
+            else if(status[node] == 1)
+                return false;
+            else {
+                status[node] = 1;
+                if(!dfs(node))
+                    return false;
+                status[node] = 2;
+            }
+        }
+        return true;
+    }
+};

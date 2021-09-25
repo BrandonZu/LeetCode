@@ -2,19 +2,9 @@
 // Created by BrandonZu on 2021/7/13.
 //
 
-#include "iostream"
-#include "vector"
-#include "queue"
+#include "common.h"
+#include "TreeNode.h"
 using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 
 // Runtime 28ms(>80%) | Memory Cost 23.3MB(>55%)
 class Solution {
@@ -32,5 +22,22 @@ public:
             return l;
         else
             return r;
+    }
+};
+
+// 1st Reiew 09/24/21
+// Runtime 28ms(>82%) | Memory Cost 23MB(65%)
+class Solution_R1 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if((root->val >= p->val && root->val <= q->val) || (root->val >= q->val && root->val <= p->val))
+            return root;
+
+        if(p->val > root->val && q->val > root->val) {
+            return lowestCommonAncestor(root->right, p, q);
+        }
+        else {
+            return lowestCommonAncestor(root->left, p, q);
+        }
     }
 };
