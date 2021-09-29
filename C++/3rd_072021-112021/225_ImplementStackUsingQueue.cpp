@@ -2,9 +2,7 @@
 // Created by BrandonZu on 2021/7/8.
 //
 
-#include "stack"
-#include "queue"
-using namespace std;
+#include "common.h"
 
 class MyStack {
     queue<int> myQ;
@@ -39,5 +37,36 @@ public:
     /** Returns whether the stack is empty. */
     bool empty() {
         return myQ.empty();
+    }
+};
+
+// 1st Review 09/29/21
+// Runtime 0ms(>100%) | Memory Usage 6.8MB(>89%)
+class MyStack_R1 {
+    queue<int> q;
+public:
+    MyStack_R1() {}
+
+    void push(int x) {
+        int size = q.size();
+        q.push(x);
+        for(int i = 0; i < size; i++) {
+            q.push(q.front());
+            q.pop();
+        }
+    }
+
+    int pop() {
+        int tmp = q.front();
+        q.pop();
+        return tmp;
+    }
+
+    int top() {
+        return q.front();
+    }
+
+    bool empty() {
+        return q.empty();
     }
 };

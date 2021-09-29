@@ -33,3 +33,32 @@ public:
         return s.substr(0, pos - 1);
     }
 };
+
+// 1st Review 09/28/21
+// Runtime 0ms(>100%) | Memory Usgae 7.2MB(>76%)
+class Solution_R1 {
+public:
+    string reverseWords(string s) {
+        // Remove extra spaces
+        int i = 0;
+        int j = s.find_first_not_of(' ');
+        s.push_back(' ');
+        while(j != string::npos) {
+            while(s[j] != ' ') {
+                s[i++] = s[j++];
+            }
+            s[i++] = ' ';
+            j = s.find_first_not_of(' ', j);
+        }
+        i--;
+        reverse(s.begin(), s.begin() + i);
+        int pos = 0;
+        while(pos < s.size()) {
+            int next = s.find_first_of(' ', pos);
+            reverse(s.begin() + pos, s.begin() + next);
+            pos = next + 1;
+        }
+        reverse(s.begin() + pos, s.end());
+        return s.substr(0, i);
+    }
+};

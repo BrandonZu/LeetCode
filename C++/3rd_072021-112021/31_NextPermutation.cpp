@@ -25,3 +25,27 @@ public:
         reverse(nums.begin() + cur + 1, nums.end());
     }
 };
+
+// 1st Review 09/28/21
+// Runtime 8ms(>33%) | Memory Usage 12MB(>37%)
+class Solution_R1 {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i = nums.size() - 1;
+        while(i - 1 >= 0 && nums[i - 1] >= nums[i])
+            i--;
+        // Current permutation is the largest
+        if(i == 0) {
+            sort(nums.begin(), nums.end());
+            return;
+        }
+
+        int j = i;
+        for(; j < nums.size(); j++) {
+            if(nums[j] <= nums[i - 1])
+                break;
+        }
+        swap(nums[i - 1], nums[j - 1]);
+        reverse(nums.begin() + i, nums.end());
+    }
+};
