@@ -5,6 +5,8 @@
 #ifndef LEETCODE_COMMON_H
 #define LEETCODE_COMMON_H
 
+#include <cstdlib>
+
 #include<vector>
 #include<list>
 #include<stack>
