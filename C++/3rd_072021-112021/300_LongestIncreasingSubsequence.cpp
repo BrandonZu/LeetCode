@@ -73,3 +73,29 @@ public:
         return maxLen;
     }
 };
+
+// 2nd Review 10/16/2021
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n + 1, INT_MAX);
+        dp[0] = INT_MIN;
+        int max_len = 0;
+        for(int i = 0; i < n; i++) {
+            int l = 0, r = max_len;
+            while(l < r) {
+                int mid = l + r + 1>> 1;
+                if(dp[mid] < nums[i]) {
+                    l = mid;
+                }
+                else {
+                    r = mid - 1;
+                }
+            }
+            max_len = max(max_len, l + 1);
+            dp[l + 1] = nums[i];
+        }
+        return max_len;
+    }
+};
