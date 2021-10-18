@@ -77,3 +77,42 @@ public:
         return true;
     }
 };
+
+// 2nd Review
+// Runtime 12ms(>99%) | Memory Usage 13.9MB(>57%)
+class Solution_R2 {
+    bool flag;
+    vector<int> node_status;
+    vector<vector<int>> graph;
+public:
+    void dfs(vector<vector<int>>& graph, int pos) {
+        if(node_status[pos] == 1) {
+            flag = false;
+            return;
+        }
+        if(node_status[pos] == 2) return;
+        if(!flag) return;
+        node_status[pos] = 1;
+        for(int child: graph[pos]) {
+            dfs(graph, child);
+        }
+        node_status[pos] = 2;
+    }
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        flag = true;
+        node_status.resize(numCourses, 0);
+        graph.resize(numCourses, vector<int>());
+        for(auto& edge: prerequisites) {
+            graph[edge[0]].push_back(edge[1]);
+        }
+        for(int i = 0; i < numCourses; i++) {
+            if(node_status[i] == 0) {
+                dfs(graph, i);
+            }
+            if(!flag)
+                return false;
+        }
+        return true;
+    }
+};

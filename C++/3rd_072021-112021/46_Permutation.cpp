@@ -63,3 +63,33 @@ public:
         return result;
     }
 };
+
+// 2nd Review 10/17/21
+// Runtime 4ms(>70%) | Memory Cost 7.9MB(>40%)
+class Solution_R2 {
+    vector<vector<int>> result;
+    vector<int> cur_path;
+    vector<bool> used_dict;
+public:
+    void recur(vector<int>& nums, int pos, int n) {
+        if(pos == n) {
+            result.push_back(cur_path);
+            return;
+        }
+        for(int i = 0; i < used_dict.size(); i++) {
+            if(used_dict[i] == false) {
+                cur_path.push_back(nums[i]);
+                used_dict[i] = true;
+                recur(nums, pos + 1, n);
+                used_dict[i] = false;
+                cur_path.pop_back();
+            }
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+        used_dict.resize(nums.size(), false);
+        recur(nums, 0, nums.size());
+        return result;
+    }
+};
