@@ -57,3 +57,15 @@ public:
         return res;
     }
 };
+
+// 1st Review 10/19/21
+// Runtime ms() | Memory Cost MB()
+class Solution_R1 {
+public:
+    int countSubstrings(string s) {
+        vector<vector<int>> dp(s.size(), vector<int>(s.size(), 0));
+        for(int i = s.size(); i >= 1; i++) {
+            for(int j = )
+        }
+    }
+};
