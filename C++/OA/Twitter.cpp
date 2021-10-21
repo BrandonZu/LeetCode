@@ -190,6 +190,136 @@ int exam(vector<int> v) {
     return v.size();
 }
 
+// Final Discounted price
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    stack<int> decrease;
+    vector<int> result(temperatures.size(), 0);
+    for(int i = 0; i < temperatures.size(); i++) {
+        while(!decrease.empty() && temperatures[decrease.top()] < temperatures[i]) {
+            result[decrease.top()] = i - decrease.top();
+            decrease.pop();
+        }
+        decrease.push(i);
+    }
+    return result;
+}
+
+// Reaching Points
+bool reachingPoints(int sx, int sy, int tx, int ty) {
+    while (sx < tx && sy < ty) {
+        if (tx < ty)
+            ty %= tx;
+        else
+            tx %= ty;
+    }
+    return (sx == tx && sy <= ty && (ty - sy) % sx == 0) || (sy == ty && sx <= tx && (tx - sx) % sy == 0);
+}
+
+// Twitter Social Network
+class Solution {
+    vector<bool> visited;
+public:
+    void dfs(vector<vector<int>>& isConnected, int node) {
+        visited[node] = true;
+        for(int i = 0; i < isConnected[node].size(); i++) {
+            if(isConnected[node][i] == 1 && !visited[i]) {
+                dfs(isConnected, i);
+            }
+        }
+    }
+
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int count = 0;
+        visited.resize(isConnected.size(), false);
+        for(int i = 0; i < isConnected.size(); i++) {
+            if(!visited[i]) {
+                dfs(isConnected, i);
+                count++;
+            }
+        }
+        return count;
+    }
+};
+
+// Active Fountain
+int numFountains(vector<int> fountains) {
+    int n = fountains.size();
+    vector<int> extents(n, 0);
+
+    for (int i = 0; i < n; i++) {
+        int left = max(i - fountains[i], 0);
+        int right = min(i + (fountains[i] + 1), n);
+        extents[left] = max(extents[left], right);
+    }
+
+    int num_fountains = 1;
+    int right = extents[0], next_right = 0;
+    for (int i = 0; i < n; i++) {
+        next_right = max(next_right, extents[i]);
+        if (i == right) {
+            num_fountains++;
+            right = next_right;
+        }
+    }
+
+    return num_fountains;
+}
+
+// Coloring the blocks
+class Solution {
+public:
+    int minCost(vector<vector<int>>& costs) {
+        int n = costs.size();
+        vector<vector<int>> dp(n + 1, vector<int>(3, INT_MAX));
+        // Init
+        for(int i = 0; i < 3; i++) dp[0][i] = 0;
+        for(int i = 1; i <= n; i++) {
+            // Red
+            dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + costs[i - 1][0];
+            // Green
+            dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + costs[i - 1][1];
+            // Blue
+            dp[i][2] = min(dp[i - 1][0], dp[i - 1][1]) + costs[i - 1][2];
+        }
+        return min(min(dp[n][0], dp[n][1]), dp[n][2]);
+    }
+};
+
+// Get set on
+class Solution {
+    vector<vector<int>> result;
+    vector<int> path;
+    vector<bool> visited;
+public:
+    void dfs(const vector<int>& candidates, int pos, int target) {
+        if(pos >= candidates.size()) return;
+        for(int i = pos; i < candidates.size(); i++) {
+            // Remove Duplicates
+            if(i - 1 >= 0 && candidates[i] == candidates[i - 1] && !visited[i - 1])
+                continue;
+
+            path.push_back(candidates[i]);
+            visited[i] = true;
+
+            if(target - candidates[i] > 0)
+                dfs(candidates, i + 1, target - candidates[i]);
+            else if(target - candidates[i] == 0)
+                result.push_back(path);
+
+            visited[i] = false;
+            path.pop_back();
+        }
+
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        visited.resize(candidates.size(), false);
+        dfs(candidates, 0, target);
+        return result;
+    }
+};
+
 // Game Event
 #include <iostream>
 #include <vector>
