@@ -19,11 +19,14 @@
 
 #include<iterator>
 #include<algorithm>
+#include<functional>
+#include<numeric>
 
 #include<string>
-#include<sstream>
 
+#include<sstream>
 #include<iostream>
+#include<fstream>
 
 using namespace std;
 #define FAST_IOSTREAM ios_base::sync_with_stdio(false);

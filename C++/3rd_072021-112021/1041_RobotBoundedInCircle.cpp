@@ -27,3 +27,13 @@ public:
         return (x == 0 && y == 0) || dir != 0;
     }
 };
+
+// 1st Review 10/21/2021
+class Solution_R1 {
+public:
+    bool isRobotBounded(string instructions) {
+        const int i_dir = {0, 0, 1, -1};
+        const int j_dir = {1, -1, 0, 0};
+
+    }
+};
