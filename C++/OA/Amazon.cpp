@@ -132,8 +132,147 @@ int storage_optimization(int n, int m, vector<int> h, vector<int> v) {
     return longestSeq(h) * longestSeq(v);
 }
 
+// Optimal Utilization
+vector<vector<int>> optimalUtilization(vector<vector<int>> a, vector<vector<int>> b, int target) {
+    auto cmp = [&] (vector<int>& a, vector<int>& b) { return a[1] < b[1]; };
+    sort(a.begin(), a.end(), cmp);
+    sort(b.begin(), b.end(), cmp);
+    int l = 0, r = b.size() - 1;
+    vector<vector<int>> result;
+    int min_deli = target;
+    while(l < a.size() && r >= 0) {
+        if(a[l][1] + b[r][1] > target) {
+            r--;
+        }
+        else {
+            if(target - (a[l][1] + b[r][1]) < min_deli) {
+                min_deli = target - (a[l][1] + b[r][1]);
+                result.clear();
+            }
+            for(int tmp = r; tmp >= 0 && b[tmp][1] == b[r][1]; tmp--) {
+                result.push_back({a[l][0], b[tmp][0]});
+            }
+            l++;
+        }
+    }
+    return result;
+}
+
+// Two Sum - Unique Pairs
+int twoSum(vector<int> nums, int target) {
+    unordered_set<int> pre_set;
+    unordered_set<int> used_set;
+    int res = 0;
+    for(int i: nums) {
+        if(pre_set.find(target - i) != pre_set.end() && used_set.find(i) == used_set.end()) {
+            res++;
+            used_set.insert(i);
+            used_set.insert(target - i);
+        }
+        pre_set.insert(i);
+    }
+    return res;
+}
+
+// Common Prefix Length
+
+vector<int> calculateZ(string s) {
+    vector<int> Z(s.size(), 0);
+    Z[0] = s.size();
+    int left = 0, right = 0;
+    for(int k = 1; k < Z.size(); k++) {
+        if(k > right) {
+            left = right = k;
+            while(right < s.size() && s[right] == s[right - left])
+                right++;
+            Z[k] = right - left;
+            right--;
+        }
+        else {
+            if(Z[k - left] + k <= right) {
+                Z[k] = Z[k - left];
+            }
+            else {
+                left = k;
+                while(right < s.size() && s[right] == s[right - left])
+                    right++;
+                Z[k] = right - left;
+                right--;
+            }
+        }
+    }
+    return Z;
+}
+
+int sumSimilarities(string s, int n) {
+    vector<int> Z = calculateZ(s);
+    int total = 0;
+    for(int len: Z)
+        total += len;
+    return total;
+}
+
+// Distinct subarrays with at most k odd elements
+// Rolling Hash + Sliding Window
+
+struct node {
+    node* child[10];
+    bool flag;
+    node() {
+        for(int i = 0; i < 10; i++) {
+            child[i] = nullptr;
+        }
+        flag = false;
+    }
+};
+node* head = new node();
+
+void insert(vector<int>& nums, int l, int r) {
+    node* cur = head;
+    for(int i = l; i <= r; i++) {
+        if(!cur->child[nums[i]]) {
+            cur->child[nums[i]] = new node();
+        }
+        cur = cur->child[nums[i]];
+    }
+    cur->flag = true;
+}
+
+bool query(vector<int>& nums, int l, int r) {
+    node* cur = head;
+    for(int i = l; i <= r; i++) {
+        if(!cur->child[nums[i]]) return false;
+        cur = cur->child[nums[i]];
+    }
+    return cur->flag;
+}
+
+int distinctSubarray(vector<int> nums, int k) {
+    vector<int> prefix(nums.size());
+    int odd_cnt = 0;
+    for(int i = 0; i < nums.size(); i++) {
+        if(nums[i] & 1) odd_cnt++;
+        prefix[i] = odd_cnt;
+    }
+    int ans = 0;
+
+    for(int i = 0; i < nums.size(); i++) {
+        int pre_odd = i == 0 ? 0 : prefix[i - 1];
+        int j = i;
+        while(j < nums.size() && prefix[j] - pre_odd <= k) {
+            // Remove Duplicates
+            if(!query(nums, i, j)) {
+                insert(nums, i, j);
+                ans++;
+            }
+            j++;
+        }
+    }
+    return ans;
+}
+
 int main() {
-    string tmp = "2469";
-    cout << splitPrimes(tmp) << endl;
+    vector<int> nums = {3, 2, 3, 4};
+    cout << distinctSubarray(nums, 1) << endl;
 }
 
