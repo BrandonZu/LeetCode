@@ -49,3 +49,23 @@ public:
         return ans;
     }
 };
+
+// 1st Review
+// Runtime 12ms(>98%) | Memory Usage 12MB(>100%)
+class Solution {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end(), [&](vector<int>& a, vector<int>& b) { return a[0] < b[0]; });
+        priority_queue<int, vector<int>, greater<>> pq;
+        for(vector<int>& interval: intervals) {
+            if(pq.empty() || pq.top() > interval[0]) {
+                pq.push(interval[1]);
+            }
+            else {
+                pq.pop();
+                pq.push(interval[1]);
+            }
+        }
+        return pq.size();
+    }
+};
