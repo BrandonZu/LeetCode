@@ -75,7 +75,7 @@ public:
 };
 
 // 2nd Review 10/16/2021
-class Solution {
+class Solution_R2 {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
@@ -95,6 +95,33 @@ public:
             }
             max_len = max(max_len, l + 1);
             dp[l + 1] = nums[i];
+        }
+        return max_len;
+    }
+};
+
+// 3rd Review 11/1/2021
+// Runtime 8ms(>92%) | Memory Usage 10.6MB(>14%)
+class Solution_R3 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n + 1, INT_MAX);
+        dp[0] = INT_MIN;
+        int max_len = 0;
+        for(int i = 0; i < n; i++) {
+            int l = 0, r = max_len;
+            while(l < r) {
+                int mid = (l + r + 1) / 2;
+                if(dp[mid] < nums[i]) {
+                    l = mid;
+                }
+                else {
+                    r = mid - 1;
+                }
+            }
+            dp[l + 1] = min(dp[l + 1], nums[i]);
+            max_len = max(max_len, l + 1);
         }
         return max_len;
     }

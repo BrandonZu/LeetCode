@@ -45,8 +45,53 @@ public:
 };
 
 // 1st Review Merge Sort
+// Runtime
 class Solution_MergeSort {
+    vector<pair<int, int>> tmp;
+    vector<int> counter;
 public:
+    void mergeCount(vector<pair<int, int>>& nums, int l, int r) {
+        if(l >= r) return;
+        int mid = l + r >> 1;
 
+        mergeCount(nums, l, mid);
+        mergeCount(nums, mid + 1, r);
+
+        int i = l, j = mid + 1;
+        int pos = l;
+        while(i <= mid && j <= r) {
+            if(nums[i].first > nums[j].first) {
+                counter[nums[i].second] += r - j + 1;
+                tmp[pos++] = nums[i++];
+            }
+            else {
+                tmp[pos++] = nums[j++];
+            }
+        }
+        while(i <= mid) {
+            tmp[pos++] = nums[i++];
+        }
+        while(j <= r) {
+            tmp[pos++] = nums[j++];
+        }
+        for(int k = l; k <= r; k++) {
+            nums[k] = tmp[k];
+        }
+    }
+
+    vector<int> countSmaller(vector<int>& nums) {
+        int n = nums.size();
+        tmp.resize(n);
+        counter.resize(n);
+        vector<pair<int, int>> num_index(n);
+        for(int i = 0; i < nums.size(); i++) {
+            num_index[i].first = nums[i];
+            num_index[i].second = i;
+        }
+
+        mergeCount(num_index, 0, n - 1);
+
+        return counter;
+    }
 };
 

@@ -35,6 +35,37 @@ public:
         }
         return;
     }
+
+    vector<pair<int, int>> tmp;
+    vector<int> counter;
+    void mergeCount(vector<pair<int, int>>& nums, int l, int r) {
+        if(l >= r) return;
+        int mid = l + r >> 1;
+
+        mergeCount(nums, l, mid);
+        mergeCount(nums, mid + 1, r);
+
+        int i = l, j = mid + 1;
+        int pos = l;
+        while(i <= mid && j <= r) {
+            if(nums[i] > nums[j]) {
+                counter[nums[i].second] += r - j + 1;
+                tmp[pos++] = nums[i++];
+            }
+            else {
+                tmp[pos++] = nums[j++];
+            }
+        }
+        while(i <= mid) {
+            tmp[pos++] = nums[i++];
+        }
+        while(j <= r) {
+            tmp[pos++] = nums[j++];
+        }
+        for(int k = l; k <= r; k++) {
+            nums[k] = tmp[k];
+        }
+    }
 }
 
 
