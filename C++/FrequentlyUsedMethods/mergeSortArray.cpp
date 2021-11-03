@@ -35,39 +35,67 @@ public:
         }
         return;
     }
+}
 
-    vector<pair<int, int>> tmp;
-    vector<int> counter;
-    void mergeCount(vector<pair<int, int>>& nums, int l, int r) {
-        if(l >= r) return;
-        int mid = l + r >> 1;
+vector<int> prev_cnt;
+vector<int> suf_cnt;
+vector<pair<int, int>> tmp;
 
-        mergeCount(nums, l, mid);
-        mergeCount(nums, mid + 1, r);
-
-        int i = l, j = mid + 1;
-        int pos = l;
-        while(i <= mid && j <= r) {
-            if(nums[i] > nums[j]) {
-                counter[nums[i].second] += r - j + 1;
-                tmp[pos++] = nums[i++];
-            }
-            else {
-                tmp[pos++] = nums[j++];
-            }
-        }
-        while(i <= mid) {
+void prevMergeCnt(vector<pair<int, int>>& nums, int l, int r) {
+    if(l >= r) return;
+    int mid = l + (r - l) / 2;
+    prevMergeCnt(nums, l, mid);
+    prevMergeCnt(nums, mid + 1, r);
+    int i = l, j = mid + 1, pos = l;
+    while(i <= mid && j <= r) {
+        if(nums[i].first > nums[j].first) {
             tmp[pos++] = nums[i++];
         }
-        while(j <= r) {
+        else {
+            prev_cnt[nums[j].second] += i - l;
             tmp[pos++] = nums[j++];
         }
-        for(int k = l; k <= r; k++) {
-            nums[k] = tmp[k];
-        }
+    }
+    while(i <= mid) {
+        tmp[pos++] = nums[i++];
+    }
+    while(j <= r) {
+        prev_cnt[nums[j].second] += mid - l + 1;
+        tmp[pos++] = nums[j++];
+    }
+    for(int k = l; k <= r; k++) {
+        nums[k] = tmp[k];
     }
 }
 
+void sufMergeCnt(vector<pair<int, int>>& nums, int l, int r) {
+    if(l >= r) return;
+    int mid = l + r >> 1;
+
+    sufMergeCnt(nums, l, mid);
+    sufMergeCnt(nums, mid + 1, r);
+
+    int i = l, j = mid + 1;
+    int pos = l;
+    while(i <= mid && j <= r) {
+        if(nums[i].first > nums[j].first) {
+            suf_cnt[nums[i].second] += r - j + 1;
+            tmp[pos++] = nums[i++];
+        }
+        else {
+            tmp[pos++] = nums[j++];
+        }
+    }
+    while(i <= mid) {
+        tmp[pos++] = nums[i++];
+    }
+    while(j <= r) {
+        tmp[pos++] = nums[j++];
+    }
+    for(int k = l; k <= r; k++) {
+        nums[k] = tmp[k];
+    }
+}
 
 int main() {
     vector<int> src = {3,5,10,2,9,77,0, 777};
