@@ -2,19 +2,8 @@
 // Created by BrandonZu on 2021/7/14.
 //
 
-#include "iostream"
-#include "vector"
-#include "queue"
-using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+#include "common.h"
+#include "TreeNode.h"
 
 // Timecost 4ms(>99%) | Memory Cost 21.3MB(>77%)
 class Solution {
@@ -37,3 +26,24 @@ public:
         return root;
     }
 };
+
+// 1st Review 11/5/21
+// Runtime 12ms(>80%) | Memory Usage 21MB(>77%)
+class Solution_R1 {
+public:
+    TreeNode* buildBST(vector<int>& nums, int l, int r) {
+        if(l > r) return nullptr;
+        if(l == r) return new TreeNode(nums[l]);
+
+        int mid = (l + r) / 2;
+        TreeNode* root = new TreeNode(nums[mid]);
+        root->left = buildBST(nums, l, mid - 1);
+        root->right = buildBST(nums, mid + 1, r);
+        return root;
+    }
+
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return buildBST(nums, 0, nums.size() - 1);
+    }
+};
+
