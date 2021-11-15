@@ -107,3 +107,20 @@ public:
             return recur(s, pos + 1, r->children[s[pos] - 'a']);
     }
 };
+
+// 1st Review 11/14/21
+// Runtime ms() | Memory Usage MB()
+class Solution_R1 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.size();
+        unordered_set<string> hash(wordDict.begin(), wordDict.end());
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= i; j++) {
+
+            }
+        }
+
+    }
+};

@@ -26,3 +26,26 @@ public:
     }
 };
 
+// 1st Review 11/14/21
+// Runtime 240ms(>80%) | Memory Usage 134MB(>38%)
+class Solution_R1 {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> res;
+        deque<pair<int, int>> q;
+        for(int i = 0; i < k - 1; i++) {
+            while(!q.empty() && q.back().second <= nums[i])
+                q.pop_back();
+            q.emplace_back(i, nums[i]);
+        }
+        for(int i = k - 1; i < nums.size(); i++) {
+            while(!q.empty() && q.front().first < i - k + 1)
+                q.pop_front();
+            while(!q.empty() && q.back().second <= nums[i])
+                q.pop_back();
+            q.emplace_back(i, nums[i]);
+            res.push_back(q.front().second);
+        }
+        return res;
+    }
+};
