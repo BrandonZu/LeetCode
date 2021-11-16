@@ -6,7 +6,7 @@
 
 // Monotonic Stack
 // Runtime 4ms(>90%) | Memory Usage 14.5MB(>10%)
-class Solution_1 {
+class Solution_Stack {
 public:
     int trap(vector<int>& height) {
         stack<int> stk;
@@ -26,7 +26,7 @@ public:
 
 // DP
 // Runtime 4ms(>90%) | Memory Usage 14.6MB(>10%)
-class Solution_2 {
+class Solution_DP {
 public:
     int trap(vector<int>& height) {
         int left = 0;
@@ -49,7 +49,7 @@ public:
 
 // Two Pointers
 // Runtime 4ms(>90%) | Memory Usage 14MB(97%)
-class Solution_3 {
+class Solution_TwoPointers {
 public:
     int trap(vector<int>& height) {
         int res = 0;
@@ -69,6 +69,51 @@ public:
             }
         }
 
+        return res;
+    }
+};
+
+// 1st Review 11/16/21
+// Runtime 8ms(>82%) | Memory Usage 16MB(>31%)
+class Solution_Stack_R1 {
+public:
+    int trap(vector<int>& height) {
+        stack<int> stk;
+        int res = 0;
+        for(int i = 0; i < height.size(); i++) {
+            while(!stk.empty() && height[stk.top()] < height[i]) {
+                int bot = stk.top();
+                stk.pop();
+                if(!stk.empty()) {
+                    res += (i - stk.top() - 1) * (min(height[stk.top()], height[i]) - height[bot]);
+                }
+            }
+            stk.push(i);
+        }
+        return res;
+    }
+};
+
+// 1st Review 11/16/21
+// Runtime 8ms(>81%) | Memory Usage 15.7MB(>83%)
+class Solution_TwoPointers_R1 {
+public:
+    int trap(vector<int>& height) {
+        int l_max = 0, r_max = 0;
+        int l = 0, r = height.size() - 1;
+        int res = 0;
+        while(l <= r) {
+            if(l_max < r_max) {
+                res += max(0, l_max - height[l]);
+                l_max = max(l_max, height[l]);
+                l++;
+            }
+            else {
+                res += max(0, r_max - height[r]);
+                r_max = max(r_max, height[r]);
+                r--;
+            }
+        }
         return res;
     }
 };

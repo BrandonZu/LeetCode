@@ -108,19 +108,23 @@ public:
     }
 };
 
-// 1st Review 11/14/21
-// Runtime ms() | Memory Usage MB()
+// 1st Review 11/15/21
+// Runtime 4ms(>92%) | Memory Usage 9.6MB(>67%)
 class Solution_R1 {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
         int n = s.size();
         unordered_set<string> hash(wordDict.begin(), wordDict.end());
-        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+        vector<bool> dp(n + 1, false);
+        dp[0] = true;
         for(int i = 1; i <= n; i++) {
-            for(int j = 1; j <= i; j++) {
-
+            for(int j = i; j >= 1; j--) {
+                if(dp[j - 1] && hash.find(s.substr(j - 1, i - j + 1)) != hash.end()) {
+                    dp[i] = true;
+                    break;
+                }
             }
         }
-
+        return dp[n];
     }
 };
