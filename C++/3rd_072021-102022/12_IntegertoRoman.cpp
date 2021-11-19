@@ -44,3 +44,23 @@ public:
         return res;
     }
 };
+
+// 1st Review 11/18/21
+// Runtime 12ms(>37%) | Memory Usage 6.1MB(>49%)
+class Solution_R1 {
+    const pair<int, string> intToRomanMap[13] = {
+            {1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"},
+            {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}
+    };
+public:
+    string intToRoman(int num) {
+        string roman;
+        for(auto& p: intToRomanMap) {
+            while(num >= p.first) {
+                num -= p.first;
+                roman += p.second;
+            }
+        }
+        return roman;
+    }
+};

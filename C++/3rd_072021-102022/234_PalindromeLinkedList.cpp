@@ -9,13 +9,12 @@ class Solution {
 public:
     bool isPalindrome(ListNode* head) {
         ListNode* slow = head, *fast = head;
-        int cnt = 1;
-        while(fast->next) {
+        ListNode* pre = slow;
+        while(fast && fast->next) {
             slow = slow->next;
-            fast = fast->next, cnt++;
-            if(fast->next)
-                fast = fast->next, cnt++;
+            fast = fast->next->next;
         }
-        
+        ListNode* l1 = head;
+        ListNode* l2 =
     }
 };
