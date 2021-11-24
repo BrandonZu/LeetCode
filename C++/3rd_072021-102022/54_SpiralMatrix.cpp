@@ -4,7 +4,7 @@
 
 #include "common.h"
 
-// Runtime 0mw(>100%) | Memory Usage 6.8MB(>90%)
+// Runtime 0ms(>100%) | Memory Usage 6.8MB(>90%)
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
@@ -34,3 +34,36 @@ public:
     }
 };
 
+// 1st Review
+// Runtime 0ms(>100%) | Memory Usage 6.8MB(>72%)
+class Solution_R1 {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int n = matrix.size(), m = matrix[0].size();
+        vector<int> res;
+        int l = 0, r = m - 1, t = 0, b = n - 1;
+        while(l <= r && t <= b) {
+            for(int j = l; j <= r; j++) {
+                res.push_back(matrix[t][j]);
+            }
+            t++;
+            if(t > b) break;
+            for(int i = t; i <= b; i++) {
+                res.push_back(matrix[i][r]);
+            }
+            r--;
+            if(r < l) break;
+            for(int j = r; j >= l; j--) {
+                res.push_back(matrix[b][j]);
+            }
+            b--;
+            if(b < t) break;
+            for(int i = b; i >= t; i--) {
+                res.push_back(matrix[i][l]);
+            }
+            l++;
+            if(l > r) break;
+        }
+        return res;
+    }
+};
