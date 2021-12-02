@@ -40,8 +40,8 @@ public:
             return;
         }
 
-        int j = i;
-        for(; j < nums.size(); j++) {
+        int j;
+        for(j = i; j < nums.size(); j++) {
             if(nums[j] <= nums[i - 1])
                 break;
         }
