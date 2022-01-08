@@ -23,3 +23,20 @@ public:
     }
 };
 
+// 1st Review 12/12/21
+// Runtime 0ms(100%) | Memory Usage 6MB(>42%)
+class Solution_R1 {
+public:
+    double myPow(double x, int n) {
+        double res = 1;
+        long abs_n = abs(n);
+        while(abs_n) {
+            if(abs_n & 1) {
+                res *= x;
+            }
+            abs_n >>= 1;
+            x *= x;
+        }
+        return n >= 0 ? res : 1 / res;
+    }
+};

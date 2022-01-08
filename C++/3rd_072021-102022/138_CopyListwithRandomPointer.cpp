@@ -45,13 +45,6 @@ public:
     }
 };
 
-int main() {
-    Node* node = new Node(-1);
-    Solution s;
-    s.copyRandomList(node);
-
-}
-
 // Runtime 8ms(>75%) | Memory Usage 11.3MB(>26.7%)
 class Solution_HashMap {
 public:
@@ -77,5 +70,31 @@ public:
         }
 
         return nodeMap[head];
+    }
+};
+
+// Runtime 8ms(>75%) | Memory Usage 11.2MB(>88%)
+class Solution_R1 {
+public:
+    Node* copyRandomList(Node* head) {
+        for(auto* p = head; p; p = p->next->next) {
+            Node* tmp = new Node(p->val);
+            tmp->next = p->next;
+            p->next = tmp;
+        }
+        for(auto* p = head; p; p = p->next->next) {
+            if(p->random) {
+                p->next->random = p->random->next;
+            }
+        }
+        Node* res = new Node(-1), * tail = res;
+        auto* p = head;
+        while(p) {
+            Node* n_node = p->next->next;
+            tail->next = p->next, tail = tail->next;
+            p->next = n_node;
+            p = n_node;
+        }
+        return res->next;
     }
 };

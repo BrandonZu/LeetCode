@@ -4,7 +4,7 @@
 
 #include "common.h"
 
-// Runtime 81ms(>14%) | Memory Usage 20MB(>69%)
+// Runtime 56ms(>90%) | Memory Usage 19.7MB(>68%)
 class Solution {
 public:
     bool validPalindrome(string s) {
@@ -13,12 +13,8 @@ public:
         while(l < r) {
             if(s[l] == s[r])
                 l++, r--;
-            else {
-                if(used)
-                    return false;
-                else
-                    return judge(l + 1, r, s) || judge(l, r - 1, s);
-            }
+            else
+                return judge(l + 1, r, s) || judge(l, r - 1, s);
         }
         return true;
     }

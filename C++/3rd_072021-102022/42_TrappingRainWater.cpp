@@ -117,3 +117,28 @@ public:
         return res;
     }
 };
+
+// 2nd Review 12/12/21
+// Runtime 8ms(>81%) | Memory Usage 15.7MB(>83%)
+class Solution_TwoPointers_R2 {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int l = 0, r = n - 1;
+        int l_high = 0, r_high = 0;
+        int res = 0;
+        while(l <= r) {
+            if(l_high < r_high) {
+                res += max(0, l_high - height[l]);
+                l_high = max(height[l], l_high);
+                l++;
+            }
+            else {
+                res += max(0, r_high - height[r]);
+                r_high = max(height[r], r_high);
+                r--;
+            }
+        }
+        return res;
+    }
+};

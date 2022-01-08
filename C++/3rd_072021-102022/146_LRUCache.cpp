@@ -80,3 +80,41 @@ public:
         }
     }
 };
+
+// 1st Review 12/12/21
+// Runtime 408ms(>73%) | Memory Usage 165MB(>81%)
+class LRUCache_R1 {
+    unordered_map<int, list<pair<int, int>>::iterator> keyToNode;
+    list<pair<int, int>> nodeList;
+    int cap;
+public:
+    LRUCache_R1(int capacity) {
+        cap = capacity;
+    }
+
+    int get(int key) {
+        if(keyToNode.find(key) == keyToNode.end()) {
+            return -1;
+        }
+        else {
+            nodeList.splice(nodeList.begin(), nodeList, keyToNode[key]);
+            return keyToNode[key]->second;
+        }
+    }
+
+    void put(int key, int value) {
+        if(get(key) != -1) {
+            keyToNode[key]->second = value;
+            return;
+        }
+
+        if(keyToNode.size() == cap) {
+            int key = nodeList.back().first;
+            nodeList.pop_back();
+            keyToNode.erase(key);
+        }
+
+        nodeList.emplace_front(key, value);
+        keyToNode[key] = nodeList.begin();
+    }
+};

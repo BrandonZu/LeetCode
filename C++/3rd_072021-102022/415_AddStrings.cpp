@@ -42,3 +42,20 @@ public:
     }
 };
 
+// 1st Review 12/12/21
+// Runtime 4ms(>78%) | Memory Usage 6.7MB(>67%)
+class Solution_R1 {
+public:
+    string addStrings(string num1, string num2) {
+        string res;
+        int carry = 0;
+        for(int i = num1.size() - 1, j = num2.size() - 1; i >= 0 || j >= 0 || carry; i--, j--) {
+            int x = i >= 0 ? num1[i] - '0' : 0, y = j >= 0 ? num2[j] - '0' : 0;
+            int cur = x + y + carry;
+            carry = cur / 10;
+            res.push_back('0' + cur % 10);
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};

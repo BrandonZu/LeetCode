@@ -70,3 +70,31 @@ public:
             return ans;
     }
 };
+
+// 1st Review
+// Runtime 4ms(>91%) | Memory Usage 9.5MB(>46%)
+class Solution_R1 {
+public:
+    string simplifyPath(string path) {
+        vector<string> res;
+        stringstream ss(path);
+        string token;
+        while(getline(ss, token, '/')) {
+            if(token.empty() || token == ".") {
+                continue;
+            }
+            else if(token == "..") {
+                if(!res.empty())
+                    res.pop_back();
+            }
+            else {
+                res.push_back(token);
+            }
+        }
+        string ans;
+        for(string& s: res) {
+            ans += '/' + s;
+        }
+        return ans.empty() ? "/" : ans;
+    }
+};

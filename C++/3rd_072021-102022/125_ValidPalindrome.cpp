@@ -22,3 +22,25 @@ public:
         return true;
     }
 };
+
+// 1st Review
+// Runtime 4ms(>92%) | Memory Usage 7.3MB(>71%)
+class Solution_R1 {
+public:
+    bool isPalindrome(string s) {
+        int n = s.size();
+        int l = 0, r = n - 1;
+        while(l < r) {
+            while(l < r && !isalnum(s[l])) {
+                l++;
+            }
+            while(l < r && !isalnum(s[r])) {
+                r--;
+            }
+            if(l < r && tolower(s[l]) != tolower(s[r]))
+                return false;
+            l++, r--;
+        }
+        return true;
+    }
+};

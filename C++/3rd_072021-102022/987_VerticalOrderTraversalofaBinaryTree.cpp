@@ -2,6 +2,9 @@
 // Created by BrandonZu on 11/4/21.
 //
 
+#include "common.h"
+#include "TreeNode.h"
+
 // Runtime 4ms(>80%) | Memory Usage 12.2MB(>95%)
 class Solution {
 public:
@@ -42,3 +45,4 @@ public:
         return result;
     }
 };
+

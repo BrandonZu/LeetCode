@@ -22,3 +22,25 @@ public:
     }
 };
 
+// 1st Review 12/12/21
+// Runtime 16ms(>89%) | Memory Usage 14.1MB(>95%)
+class Solution_R1 {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> res;
+        int i = 0;
+        while(i < n) {
+            int j;
+            int r = intervals[i][1];
+            for(j = i + 1; j < n && intervals[j][0] <= r; j++) {
+                r = max(r, intervals[j][1]);
+            }
+            res.push_back({intervals[i][0], r});
+            i = j;
+        }
+        return res;
+    }
+};
+

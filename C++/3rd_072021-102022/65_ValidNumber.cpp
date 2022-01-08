@@ -40,7 +40,7 @@ public:
 
     bool isNumber(string s) {
         int n = s.size();
-        if(s.find('e') == string ::npos && s.find('E') == string::npos) {
+        if(s.find('e') == string::npos && s.find('E') == string::npos) {
             return isInteger(s, 0, n - 1) || isDecimal(s, 0, n - 1);
         }
         else {

@@ -72,3 +72,62 @@ public:
         return res;
     }
 };
+
+// Runtime 44ms(>44%) | Memory Usage 22.5MB(>23%)
+class Solution_3 {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        int n = mat.size(), m = mat[0].size();
+        vector<vector<int>> res(n + m - 1);
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                res[i + j].push_back(mat[i][j]);
+            }
+        }
+        for(int i = 2; i < n + m - 2; i += 2) {
+            reverse(res[i].begin(), res[i].end());
+        }
+        vector<int> ans;
+        for(auto& l: res) {
+            ans.insert(ans.end(), l.begin(), l.end());
+        }
+        return ans;
+    }
+};
+
+// 1st Review 12/12/21
+// Runtime 20ms(>98%) | Memory Usage 17.6MB(>100%)
+class Solution_1_R1 {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        int n = mat.size(), m = mat[0].size();
+        vector<int> res(n * m);
+        int i = 0, j = 0;
+        for(int cnt = 0; cnt < n * m; cnt++) {
+            res[cnt] = mat[i][j];
+            if((i + j) % 2 == 1) {
+                if(i == n - 1) {
+                    j++;
+                }
+                else if(j == 0) {
+                    i++;
+                }
+                else {
+                    i++, j--;
+                }
+            }
+            else {
+                if(j == m - 1) {
+                    i++;
+                }
+                else if(i == 0) {
+                    j++;
+                }
+                else {
+                    i--, j++;
+                }
+            }
+        }
+        return res;
+    }
+};

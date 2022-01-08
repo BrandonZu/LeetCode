@@ -57,4 +57,24 @@ public:
     }
 };
 
+// 1st Review 12/13/21
+// Runtime 232ms(>44%) | Memory Usage 58MB(>54%)
+class Solution_R1 {
+public:
+    struct cmp {
+        bool operator() (const vector<int>& a, const vector<int>& b) {
+            return getDist(a) > getDist(b);
+        }
+    };
+
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        priority_queue<vector<int>, vector<vector<int>>, cmp> pq(points.begin(), points.end());
+        vector<vector<int>> res(k);
+        for(int i = 0; i < k; i++) {
+            res[i] = pq.top();
+            pq.pop();
+        }
+        return res;
+    }
+};
 

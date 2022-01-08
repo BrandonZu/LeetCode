@@ -43,3 +43,40 @@ public:
     }
 };
 
+// 1st Review 12/12/21
+// Runtime 4ms(>98%) | Memory Usage 10MB(>84%)
+class Solution_R1 {
+public:
+    int partition(vector<int>& nums, int l, int r) {
+        int pivot = nums[l + r >> 1];
+        swap(nums[l], nums[l + r >> 1]);
+        while(l < r) {
+            while(l < r && nums[r] > pivot)
+                r--;
+            nums[l] = nums[r];
+            while(l < r && nums[l] <= pivot)
+                l++;
+            nums[r] = nums[l];
+        }
+        nums[l] = pivot;
+        return l;
+    }
+
+    int findKthLargest(vector<int>& nums, int k) {
+        int l = 0, r = nums.size() - 1;
+        while(l < r) {
+            int pos = partition(nums, l, r);
+            if(r - pos + 1 == k) {
+                return nums[pos];
+            }
+            else if(r - pos + 1 > k) {
+                l = pos + 1;
+            }
+            else {
+                k -= (r - pos + 1);
+                r = pos - 1;
+            }
+        }
+        return nums[l];
+    }
+};

@@ -30,9 +30,3 @@ public:
     }
 };
 
-int main() {
-    Solution s;
-    string word = "internationalization";
-    string abbr = "i12iz4n";
-    cout << s.validWordAbbreviation(word, abbr) << endl;
-}

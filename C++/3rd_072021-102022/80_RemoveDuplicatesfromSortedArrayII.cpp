@@ -26,3 +26,22 @@ public:
         return i;
     }
 };
+
+// 1st Review
+// Runtime 4ms(>84%) | Memory Usage 11MB(>75%)
+class Solution_R1 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int i = 0, j = 0;
+        while(j < n) {
+            int tmp;
+            for(tmp = j; tmp < n && nums[tmp] == nums[j]; tmp++) {
+                if(tmp - j < 2)
+                    nums[i++] = nums[j];
+            }
+            j = tmp;
+        }
+        return i;
+    }
+};

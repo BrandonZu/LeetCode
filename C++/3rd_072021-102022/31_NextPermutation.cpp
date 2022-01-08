@@ -49,3 +49,27 @@ public:
         reverse(nums.begin() + i, nums.end());
     }
 };
+
+// 2nd Review 12/12/2021
+class Solution_R2 {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        int i, j;
+        for(i = n - 1; i - 1 >= 0; i--) {
+            if(nums[i - 1] < nums[i]) {
+                break;
+            }
+        }
+        if(i == 0) {
+            sort(nums.begin(), nums.end());
+            return;
+        }
+        for(j = i; j < n; j++) {
+            if(nums[j] <= nums[i - 1])
+                break;
+        }
+        swap(nums[i - 1], nums[j - 1]);
+        sort(nums.begin() + i, nums.end());
+    }
+};

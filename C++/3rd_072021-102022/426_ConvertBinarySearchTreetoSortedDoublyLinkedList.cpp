@@ -28,7 +28,6 @@ public:
 class Solution {
     Node* prev;
 public:
-
     void postorder(Node* root) {
         if(!root) return;
         postorder(root->left);
@@ -49,3 +48,27 @@ public:
     }
 };
 
+// 1st Review 12/12/21
+// Runtime 4ms(>90%) | Memory Usage 7.6MB(>81%)
+class Solution_R1 {
+    Node* prev;
+public:
+    void inorder(Node* root) {
+        if(!root) return;
+        inorder(root->left);
+        root->left = prev;
+        prev->right = root;
+        prev = root;
+        inorder(root->right);
+    }
+
+    Node* treeToDoublyList(Node* root) {
+        if(!root) return root;
+        Node* head = new Node(-1);
+        prev = head;
+        inorder(root);
+        prev->right = head->right;
+        head->right->left = prev;
+        return head->right;
+    }
+};

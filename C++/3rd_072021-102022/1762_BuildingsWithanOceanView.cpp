@@ -15,7 +15,7 @@ public:
                 buildings.push_back(i);
             }
         }
-        sort(buildings.begin(), buildings.end());
+        reverse(buildings.begin(), buildings.end());
         return buildings;
     }
 };

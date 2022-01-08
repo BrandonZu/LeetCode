@@ -50,3 +50,25 @@ public:
         return nullptr;
     }
 };
+
+// 2nd Review 12/12/21
+// Runtime 16ms(>73%) | Memory Cost 14MB(28%)
+class Solution_R2 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) return nullptr;
+        TreeNode* l = lowestCommonAncestor(root->left, p, q);
+        TreeNode* r = lowestCommonAncestor(root->right, p, q);
+        if(root->val == p->val || root->val == q->val) {
+            return root;
+        }
+        if(l && r)
+            return root;
+        else if(l)
+            return l;
+        else if(r)
+            return r;
+        else
+            return nullptr;
+    }
+};
