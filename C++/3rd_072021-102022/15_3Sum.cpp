@@ -42,3 +42,44 @@ public:
         return result;
     }
 };
+
+// R .28 | M .72
+class Solution2 {
+public:
+    inline void moveMid(vector<int>& nums, int& mid, int r) {
+        mid++;
+        while(nums[mid - 1] == nums[mid] && mid < r) {
+            mid++;
+        }
+    }
+    inline void moveR(vector<int>& nums, int mid, int& r) {
+        r--;
+        while(nums[r] == nums[r + 1] && mid < r) {
+            r--;
+        }
+    }
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        for(int l = 0; l < nums.size() - 2; l++) {
+            if(l && nums[l] == nums[l - 1]) {
+                continue;
+            }
+            int mid = l + 1, r = nums.size() - 1;
+            while(mid < r) {
+                if(nums[l] + nums[mid] + nums[r] == 0) {
+                    res.push_back({nums[l], nums[mid], nums[r]});
+                    moveMid(nums, mid, r);
+                    moveR(nums, mid, r);
+                }
+                else if(nums[l] + nums[mid] + nums[r] > 0) {
+                    moveR(nums, mid, r);
+                }
+                else {
+                    moveMid(nums, mid, r);
+                }
+            }
+        }
+        return res;
+    }
+};

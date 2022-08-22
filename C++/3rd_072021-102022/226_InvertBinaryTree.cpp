@@ -2,18 +2,8 @@
 // Created by BrandonZu on 2021/7/1.
 //
 
-#include "iostream"
-#include "vector"
-using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+#include "common.h"
+#include "TreeNode.h"
 
 class Solution {
 public:
@@ -28,5 +18,17 @@ public:
 
     TreeNode* invertTree(TreeNode* root) {
         return traversal(root);
+    }
+};
+
+// R .50 | M .80
+class Solution2 {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return root;
+        swap(root->left, root->right);
+        invertTree(root->left);
+        invertTree(root->right);
+        return root;
     }
 };

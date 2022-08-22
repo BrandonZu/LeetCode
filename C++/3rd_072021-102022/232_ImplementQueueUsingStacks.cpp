@@ -2,8 +2,7 @@
 // Created by BrandonZu on 2021/7/10.
 //
 
-#include"stack"
-using namespace std;
+#include "common.h"
 
 class MyQueue {
     stack<int> s_in, s_out;
@@ -45,5 +44,45 @@ public:
     /** Returns whether the queue is empty. */
     bool empty() {
         return s_in.empty() && s_out.empty();
+    }
+};
+
+
+// R .100 | M .90
+class MyQueue2 {
+    stack<int> in, out;
+public:
+    MyQueue2() {
+
+    }
+
+    void push(int x) {
+        in.push(x);
+    }
+
+    int pop() {
+        if(out.empty()) {
+            while(!in.empty()) {
+                out.push(in.top());
+                in.pop();
+            }
+        }
+        int ret = out.top();
+        out.pop();
+        return ret;
+    }
+
+    int peek() {
+        if(out.empty()) {
+            while(!in.empty()) {
+                out.push(in.top());
+                in.pop();
+            }
+        }
+        return out.top();
+    }
+
+    bool empty() {
+        return in.empty() && out.empty();
     }
 };

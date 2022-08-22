@@ -1,12 +1,5 @@
-#include "iostream"
-using namespace std;
-
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(): val(0), next(nullptr) {}
-    ListNode(int x): val(x), next(nullptr) {}
-};
+#include "common.h"
+#include "ListNode.h"
 
 class Solution {
 public:
@@ -22,3 +15,17 @@ public:
     }
 };
 
+// R .47 | M .98
+class Solution2 {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr, * cur = head;
+        while(cur) {
+            ListNode* next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+};

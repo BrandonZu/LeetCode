@@ -21,3 +21,22 @@ public:
         return -1;
     }
 };
+
+// 8/20/2022
+// Runtime 39ms(>93%) | Memory Usage 27.5MB(>67%)
+class Solution2 {
+public:
+    int search(vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while(l < r) {
+            int mid = (l + r + 1) / 2;
+            if(nums[mid] <= target) {
+                l = mid;
+            }
+            else {
+                r = mid - 1;
+            }
+        }
+        return nums[l] == target ? l : -1;
+    }
+};

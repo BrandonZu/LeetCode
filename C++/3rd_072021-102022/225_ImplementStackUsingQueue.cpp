@@ -70,3 +70,43 @@ public:
         return q.empty();
     }
 };
+
+// R .100 | M .88
+class MyStack3 {
+    queue<int> q;
+public:
+    MyStack3() {
+
+    }
+
+    void push(int x) {
+        q.push(x);
+    }
+
+    int pop() {
+        int sz = q.size();
+        for(int i = 0; i < sz - 1; i++) {
+            q.push(q.front());
+            q.pop();
+        }
+        int ret = q.front();
+        q.pop();
+        return ret;
+    }
+
+    int top() {
+        int sz = q.size();
+        for(int i = 0; i < sz - 1; i++) {
+            q.push(q.front());
+            q.pop();
+        }
+        int ret = q.front();
+        q.push(q.front());
+        q.pop();
+        return ret;
+    }
+
+    bool empty() {
+        return q.empty();
+    }
+};

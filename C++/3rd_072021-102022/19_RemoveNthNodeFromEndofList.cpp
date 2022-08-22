@@ -26,3 +26,25 @@ public:
         return dummy->next;
     }
 };
+
+// R .45 | M .75
+class Solution2 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(-1, head);
+        ListNode* slow = dummy, * fast = dummy, * prev = nullptr;
+        for(int i = 0; i < n; i++) {
+            fast = fast->next;
+        }
+        while(fast) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next;
+        }
+        prev->next = slow->next;
+        delete slow;
+        ListNode* ret = dummy->next;
+        delete dummy;
+        return ret;
+    }
+};

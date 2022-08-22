@@ -28,3 +28,39 @@ public:
     }
 };
 
+
+struct PairHasher {
+    int operator()(const pair<int, int> &V) const {
+        long hash = 2;
+        hash ^= V.first + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+        hash ^= V.second + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+        return (int)hash;
+    }
+};
+
+// Runtime 20ms(>9%) | Memory Usage 12.7MB(>5.2%)
+class Solution_TopDown {
+public:
+    unordered_map<pair<int, int>, int, PairHasher> memo;
+    int n, m;
+    int calculateMinimumHP(vector<vector<int>>& dungeon) {
+        n = dungeon.size(), m = dungeon[0].size();
+        memo[{n - 1, m - 1}] = max(1, 1 - dungeon[n - 1][m - 1]);
+        return recur(dungeon, 0, 0);
+    }
+
+    int recur(vector<vector<int>>& dungeon, int i, int j) {
+        if(memo.find({i, j}) != memo.end()) {
+            return memo[{i, j}];
+        }
+        int ret = INT_MAX;
+        if(i + 1 < n) {
+            ret = min(ret, recur(dungeon, i + 1, j));
+        }
+        if(j + 1 < m) {
+            ret = min(ret, recur(dungeon, i, j + 1));
+        }
+        memo[{i, j}] = max(1, ret - dungeon[i][j]);
+        return memo[{i, j}];
+    }
+};

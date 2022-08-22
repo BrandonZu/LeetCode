@@ -2,20 +2,8 @@
 // Created by BrandonZu on 2021/7/11.
 //
 
-#include "vector"
-#include "queue"
-#include "stack"
-#include "algorithm"
-using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+#include "common.h"
+#include "TreeNode.h"
 
 // Runtime 0ms(>100%) | Memory Cost 13.3MB(>78%)
 class Solution {
@@ -49,5 +37,25 @@ public:
             return recur(node->left);
         else
             return recur(node->left) + recur(node->right);
+    }
+};
+
+// R .75 | M .81
+class Solution2 {
+public:
+    int cnt = 0;
+    int sumOfLeftLeaves(TreeNode* root) {
+        helper(root, nullptr);
+        return cnt;
+    }
+
+    void helper(TreeNode* root, TreeNode* parent) {
+        if(!root) return;
+        if(!root->left && !root->right && parent && root == parent->left) {
+            cnt += root->val;
+            return;
+        }
+        helper(root->left, root);
+        helper(root->right, root);
     }
 };

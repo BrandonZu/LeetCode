@@ -23,3 +23,24 @@ public:
         return dummy->next;
     }
 };
+
+// R .74 | M .55
+class Solution2 {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head || !head->next) {
+            return head;
+        }
+        ListNode* dummy = new ListNode(-1, head);
+        ListNode* prev = dummy;
+        while(prev && prev->next && prev->next->next) {
+            ListNode* cur = prev->next, * next = cur->next;
+            cur->next = next->next;
+            next->next = cur;
+            prev->next = next;
+
+            prev = cur;
+        }
+        return dummy->next;
+    }
+};

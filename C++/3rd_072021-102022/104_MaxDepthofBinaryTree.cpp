@@ -2,19 +2,8 @@
 // Created by BrandonZu on 2021/7/5.
 //
 
-#include "iostream"
-#include "vector"
-#include "queue"
-using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+#include "common.h"
+#include "TreeNode.h"
 
 class Solution_DFS {
     int result = 0;
@@ -44,5 +33,26 @@ public:
             result ++;
         }
         return result;
+    }
+};
+
+// R .31 | M .14
+class Solution {
+    queue<TreeNode*> q;
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        int cnt = 0;
+        q.push(root);
+        while(!q.empty()) {
+            int sz = q.size();
+            for(int i = 0; i < sz; i++) {
+                if(q.front()->left) q.push(q.front()->left);
+                if(q.front()->right) q.push(q.front()->right);
+                q.pop();
+            }
+            cnt++;
+        }
+        return cnt;
     }
 };

@@ -42,3 +42,22 @@ public:
         return res;
     }
 };
+
+// Runtime 40ms(>84%) | Memoru Usage 26MB(>31%)
+class Solution2 {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> res;
+        int l = 0, r = nums.size() - 1;
+        while(l <= r) {
+            if(pow(nums[l], 2) > pow(nums[r], 2)) {
+                res.push_back(pow(nums[l++], 2));
+            }
+            else {
+                res.push_back(pow(nums[r--], 2));
+            }
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};

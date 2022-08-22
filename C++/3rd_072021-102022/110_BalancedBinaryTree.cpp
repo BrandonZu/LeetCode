@@ -26,3 +26,24 @@ public:
             return max(l, r) + 1;
     }
 };
+
+// R .94 | M .26
+class Solution2 {
+public:
+    bool flag = true;
+    bool isBalanced(TreeNode* root) {
+        getHeight(root);
+        return flag;
+    }
+
+    int getHeight(TreeNode* root) {
+        if(!root) return 0;
+        if(!flag) return -1;
+        int l = getHeight(root->left), r = getHeight(root->right);
+        if(abs(l - r) > 1) {
+            flag = false;
+            return -1;
+        }
+        return max(l, r) + 1;
+    }
+};

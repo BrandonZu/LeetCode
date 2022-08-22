@@ -27,4 +27,19 @@ public:
     }
 };
 
-
+// Runtime 40ms(>42%) | Memory Usage 15MB(>49%)
+class Solution2 {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode* dummy = new ListNode(-1), * tail = dummy;
+        while(head) {
+            if(head->val != val) {
+                tail->next = head;
+                tail = head;
+            }
+            head = head->next;
+        }
+        tail->next = nullptr;
+        return dummy->next;
+    }
+};

@@ -19,3 +19,17 @@ public:
         return i + 1;
     }
 };
+
+// Runtime 3ms(>69%) | Memory Usage 8.8MB(>73%)
+class Solution2 {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int last = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            if(nums[i] != val) {
+                nums[last++] = nums[i];
+            }
+        }
+        return last;
+    }
+};

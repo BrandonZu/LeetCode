@@ -2,19 +2,8 @@
 // Created by BrandonZu on 2021/7/5.
 //
 
-#include "iostream"
-#include "vector"
-#include "queue"
-using namespace std;
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(): val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+#include "common.h"
+#include "TreeNode.h"
 
 class Solution {
 public:
@@ -55,5 +44,29 @@ public:
             myQ.pop();
         }
         return node_num;
+    }
+};
+
+// R .76 | M .64
+class Solution2 {
+public:
+    int countNodes(TreeNode* root) {
+        if(!root) return 0;
+        int l = 1, r = 1;
+        TreeNode* lNode = root->left, * rNode = root->right;
+        while(lNode) {
+            lNode = lNode->left;
+            ++l;
+        }
+        while(rNode) {
+            rNode = rNode->right;
+            ++r;
+        }
+        if(l == r) {
+            return (1 << l) - 1;
+        }
+        else {
+            return countNodes(root->left) + countNodes(root->right) + 1;
+        }
     }
 };
