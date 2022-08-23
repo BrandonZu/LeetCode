@@ -4,7 +4,6 @@
 
 #include "common.h"
 #include "TreeNode.h"
-using namespace std;
 
 // Runtime 4ms(>99%) | Memory Cost 21.7MB(>65%)
 class Solution {
@@ -61,6 +60,26 @@ public:
         if(!isValidBST(root->right))
             return false;
 
+        return true;
+    }
+};
+
+// R .30 | M .70
+class Solution3 {
+public:
+    TreeNode* prev = nullptr;
+    bool isValidBST(TreeNode* root) {
+        if(!root) return true;
+        if(!isValidBST(root->left)) {
+            return false;
+        }
+        if(prev && prev->val >= root->val) {
+            return false;
+        }
+        prev = root;
+        if(!isValidBST(root->right)) {
+            return false;
+        }
         return true;
     }
 };

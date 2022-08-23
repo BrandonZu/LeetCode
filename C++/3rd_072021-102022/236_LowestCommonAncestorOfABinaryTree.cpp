@@ -4,7 +4,6 @@
 
 #include "common.h"
 #include "TreeNode.h"
-using namespace std;
 
 // Runtime 12ms(>94.2%) | Memory Cost 14.4MB(>29%)
 class Solution {
@@ -70,5 +69,30 @@ public:
             return r;
         else
             return nullptr;
+    }
+};
+
+// R .74 | M .57
+class Solution3 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) return nullptr;
+        TreeNode* l = lowestCommonAncestor(root->left, p, q);
+        TreeNode* r = lowestCommonAncestor(root->right, p, q);
+        if(root == p || root == q) {
+            return root;
+        }
+        else if(l && r) {
+            return root;
+        }
+        else if(l) {
+            return l;
+        }
+        else if(r) {
+            return r;
+        }
+        else {
+            return nullptr;
+        }
     }
 };

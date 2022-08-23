@@ -49,3 +49,27 @@ public:
         return result;
     }
 };
+
+// R .92 | M .55
+class Solution3 {
+public:
+    vector<vector<int>> res;
+    vector<int> path;
+
+    vector<vector<int>> combine(int n, int k) {
+        helper(n, 1, k);
+        return res;
+    }
+
+    void helper(int n, int cur, int left) {
+        if(!left) {
+            res.push_back(path);
+            return;
+        }
+        for(int i = cur; i <= n - left + 1; i++) {
+            path.push_back(i);
+            helper(n, i + 1, left - 1);
+            path.pop_back();
+        }
+    }
+};
