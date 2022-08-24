@@ -30,3 +30,28 @@ public:
         return result;
     }
 };
+
+// R .100 | M .55
+class Solution2 {
+    const string numToChar[10] = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    vector<string> res;
+    string path;
+public:
+    vector<string> letterCombinations(string digits) {
+        if(digits.empty()) return {};
+        helper(digits, 0);
+        return res;
+    }
+
+    void helper(const string& digits, int pos) {
+        if(pos >= digits.size()) {
+            res.push_back(path);
+            return;
+        }
+        for(char c : numToChar[digits[pos] - '0']) {
+            path.push_back(c);
+            helper(digits, pos + 1);
+            path.pop_back();
+        }
+    }
+};

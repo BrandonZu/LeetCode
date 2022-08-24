@@ -29,16 +29,6 @@ public:
     }
 };
 
-//
-class Solution_BP {
-    vector<int> dp;
-public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        dp.resize(candidates.size() + 1);
-        return
-    }
-};
-
 // 1st Review 2021/8/6
 class Solution_Review1 {
     vector<vector<int>> result;
@@ -60,5 +50,29 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         backtrack(candidates, 0, target);
         return result;
+    }
+};
+
+// R .70 | M .35
+class Solution2 {
+    vector<vector<int>> res;
+    vector<int> path;
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        helper(candidates, 0, target);
+        return res;
+    }
+
+    void helper(vector<int>& nums, int pos, int target) {
+        if(target <= 0 || pos >= nums.size()) {
+            if(target == 0) {
+                res.push_back(path);
+            }
+            return;
+        }
+        helper(nums, pos + 1, target);
+        path.push_back(nums[pos]);
+        helper(nums, pos, target - nums[pos]);
+        path.pop_back();
     }
 };
