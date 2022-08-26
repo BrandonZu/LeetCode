@@ -52,3 +52,25 @@ public:
         return result;
     }
 };
+
+// R .100 | M .39
+class Solution {
+    vector<vector<int>> res;
+    vector<int> path;
+public:
+    vector<vector<int>> subsets(vector<int> &nums) {
+        helper(nums, 0);
+        return res;
+    }
+
+    void helper(vector<int> &nums, int pos) {
+        if(pos >= nums.size()) {
+            res.push_back(path);
+            return;
+        }
+        helper(nums, pos + 1);
+        path.push_back(nums[pos]);
+        helper(nums, pos + 1);
+        path.pop_back();
+    }
+};
