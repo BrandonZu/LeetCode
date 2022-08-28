@@ -35,3 +35,33 @@ public:
         return result;
     }
 };
+
+// R .49 | M .26
+class Solution2 {
+    vector<vector<int>> res;
+    vector<int> path;
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        helper(nums, 0);
+        return res;
+    }
+
+    void helper(vector<int>& nums, int pos) {
+        if(pos >= nums.size()) {
+            res.push_back(path);
+            return;
+        }
+        int end = pos + 1;
+        while(end < nums.size() && nums[end] == nums[pos]) {
+            end++;
+        }
+        end--;
+        helper(nums, end + 1);
+        for(int i = 0; i < end - pos + 1; i++) {
+            path.push_back(nums[pos]);
+            helper(nums, end + 1);
+        }
+        path.resize(path.size() - (end - pos + 1));
+    }
+};

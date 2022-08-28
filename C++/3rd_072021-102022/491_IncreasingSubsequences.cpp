@@ -37,3 +37,33 @@ public:
         return result;
     }
 };
+
+// R .77 | M .61
+class Solution2 {
+    vector<vector<int>> res;
+    vector<int> path;
+public:
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        backtrack(nums, 0);
+        return res;
+    }
+
+    void backtrack(vector<int>& nums, int pos) {
+        if(path.size() >= 2) {
+            res.push_back(path);
+        }
+        unordered_set<int> hash;
+        for(int i = pos; i < nums.size(); i++) {
+            if(!path.empty() && nums[i] < path.back()) {
+                continue;
+            }
+            if(hash.find(nums[i]) != hash.end()) {
+                continue;
+            }
+            hash.insert(nums[i]);
+            path.push_back(nums[i]);
+            backtrack(nums, i + 1);
+            path.pop_back();
+        }
+    }
+};

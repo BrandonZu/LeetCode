@@ -54,7 +54,7 @@ public:
 };
 
 // R .100 | M .39
-class Solution {
+class Solution3_1 {
     vector<vector<int>> res;
     vector<int> path;
 public:
@@ -72,5 +72,25 @@ public:
         path.push_back(nums[pos]);
         helper(nums, pos + 1);
         path.pop_back();
+    }
+};
+
+// .R 100 | M .71
+class Solution3_2 {
+    vector<vector<int>> res;
+    vector<int> path;
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        backtrack(nums, 0);
+        return res;
+    }
+
+    void backtrack(vector<int>& nums, int pos) {
+        res.push_back(path);
+        for(int i = pos; i < nums.size(); i++) {
+            path.push_back(nums[i]);
+            backtrack(nums, i + 1);
+            path.pop_back();
+        }
     }
 };

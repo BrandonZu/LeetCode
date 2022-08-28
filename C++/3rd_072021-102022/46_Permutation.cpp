@@ -93,3 +93,33 @@ public:
         return result;
     }
 };
+
+// R .100 | M .45
+class Solution3 {
+    vector<vector<int>> result;
+    vector<int> path;
+    vector<bool> visited;
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        visited.resize(nums.size(), false);
+        backtrack(nums);
+        return result;
+    }
+
+    void backtrack(vector<int>& nums) {
+        if(path.size() == nums.size()) {
+            result.push_back(path);
+            return;
+        }
+        for(int i = 0; i < nums.size(); i++) {
+            if(visited[i]) {
+                continue;
+            }
+            visited[i] = true;
+            path.push_back(nums[i]);
+            backtrack(nums);
+            path.pop_back();
+            visited[i] = false;
+        }
+    }
+};
