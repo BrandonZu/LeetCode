@@ -87,3 +87,41 @@ public:
         return result;
     }
 };
+
+// R .57 | M .47
+class Solution3 {
+    vector<string> bd;
+    vector<vector<string>> res;
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        bd.resize(n, string(n, '.'));
+        backtrack(0, n);
+        return res;
+    }
+
+    bool check(int x, int y, int n) {
+        for(int i = 0; i < x; i++) {
+            if(bd[i][y] == 'Q')
+                return false;
+            if(y - (x - i) >= 0 && y - (x - i) < n && bd[i][y - (x - i)] == 'Q')
+                return false;
+            if(y + (x - i) >= 0 && y + (x - i) < n && bd[i][y + (x - i)] == 'Q')
+                return false;
+        }
+        return true;
+    }
+
+    void backtrack(int pos, int n) {
+        if(pos == n) {
+            res.push_back(bd);
+            return;
+        }
+        for(int j = 0; j < n; j++) {
+            if(check(pos, j, n)) {
+                bd[pos][j] = 'Q';
+                backtrack(pos + 1, n);
+                bd[pos][j] = '.';
+            }
+        }
+    }
+};

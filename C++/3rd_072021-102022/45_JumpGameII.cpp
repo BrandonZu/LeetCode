@@ -57,3 +57,35 @@ public:
         return res;
     }
 };
+
+// R .25 | M .29
+class Solution3_1 {
+public:
+    int jump(vector<int>& nums) {
+        vector<int> steps(nums.size(), nums.size() + 1);
+        steps[0] = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            for(int j = i + 1; j <= i + nums[i] && j < nums.size(); j++) {
+                steps[j] = min(steps[j], steps[i] + 1);
+            }
+        }
+        return steps.back();
+    }
+};
+
+// R .87 | M .54
+class Solution3_2 {
+public:
+    int jump(vector<int>& nums) {
+        int steps = 0;
+        int cover = 0, nextCover = 0;
+        for(int i = 0; i < nums.size() && cover < nums.size() - 1; i++) {
+            if(i > cover) {
+                ++steps;
+                cover = nextCover;
+            }
+            nextCover = max(nextCover, i + nums[i]);
+        }
+        return steps;
+    }
+};

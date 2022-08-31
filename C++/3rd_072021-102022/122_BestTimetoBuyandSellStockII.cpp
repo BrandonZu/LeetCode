@@ -18,3 +18,25 @@ public:
         return dp_0;
     }
 };
+
+// R .60 | M .59
+class Solution2 {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        int low = 0, high = 0;
+        for(int i = 1; i < prices.size(); i++) {
+            if(prices[i] > prices[i - 1]) {
+                high = i;
+            }
+            else {
+                profit += prices[high] - prices[low];
+                low = high = i;
+            }
+        }
+        if(low != high) {
+            profit += prices[high] - prices[low];
+        }
+        return profit;
+    }
+};

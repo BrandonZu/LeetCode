@@ -25,3 +25,23 @@ public:
             return start;
     }
 };
+
+// R .98 | M .99
+class Solution2 {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n = gas.size();
+        int start = 0;
+        int curLeft = 0;
+        int totalDiff = 0;
+        for(int i = 0; i < n; i++) {
+            totalDiff += gas[i] - cost[i];
+            curLeft += gas[i] - cost[i];
+            if(curLeft < 0) {
+                start = (i + 1) % n;
+                curLeft = 0;
+            }
+        }
+        return totalDiff >= 0 ? start : -1;
+    }
+};

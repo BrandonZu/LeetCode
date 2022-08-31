@@ -34,3 +34,15 @@ public:
         return maxPos >= nums.size() - 1;
     }
 };
+
+// R .70 | M .78
+class Solution2 {
+public:
+    bool canJump(vector<int>& nums) {
+        int maxPos = 0;
+        for(int i = 0; i < nums.size() && i <= maxPos; i++) {
+            maxPos = max(maxPos, i + nums[i]);
+        }
+        return maxPos >= nums.size() - 1;
+    }
+};

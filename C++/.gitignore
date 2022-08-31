@@ -3,6 +3,7 @@
 
 # User Setting
 /*.cpp
+OA/*
 
 # User-specific stuff
 .idea/**/workspace.xml

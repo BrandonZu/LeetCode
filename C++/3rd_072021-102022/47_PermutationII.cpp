@@ -69,3 +69,36 @@ public:
         return result;
     }
 };
+
+// R .70 | M .20
+class Solution2 {
+    vector<vector<int>> res;
+    vector<int> path;
+    vector<bool> visited;
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        visited.resize(nums.size(), false);
+        backtrack(nums);
+        return res;
+    }
+
+    void backtrack(vector<int>& nums) {
+        if(path.size() == nums.size()) {
+            res.push_back(path);
+            return;
+        }
+
+        unordered_set<int> hash;
+        for(int i = 0; i < nums.size(); i++) {
+            if(visited[i] || hash.find(nums[i]) != hash.end()) {
+                continue;
+            }
+            visited[i] = true;
+            path.push_back(nums[i]);
+            hash.insert(nums[i]);
+            backtrack(nums);
+            path.pop_back();
+            visited[i] = false;
+        }
+    }
+};
