@@ -19,3 +19,21 @@ public:
         return nums[l];
     }
 };
+
+// R .87 | M .23
+class Solution2 {
+public:
+    int findMin(vector<int>& nums) {
+        int l = 0, r = nums.size() - 1;
+        while(l < r && nums[l] > nums[r]) {
+            int mid = (l + r) / 2;
+            if(nums[mid] >= nums[l]) {
+                l = mid + 1;
+            }
+            else {
+                r = mid;
+            }
+        }
+        return nums[l];
+    }
+};
