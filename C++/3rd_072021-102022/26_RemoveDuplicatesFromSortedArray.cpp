@@ -23,3 +23,19 @@ public:
         return i + 1;
     }
 };
+
+// R .91 | M .37
+class Solution2 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int end = 0;
+        int i = 0;
+        while(i < nums.size()) {
+            nums[end++] = nums[i];
+            while(i < nums.size() && nums[end - 1] == nums[i]) {
+                i++;
+            }
+        }
+        return end;
+    }
+};

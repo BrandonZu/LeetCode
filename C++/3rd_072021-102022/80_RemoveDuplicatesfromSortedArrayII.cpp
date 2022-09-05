@@ -45,3 +45,23 @@ public:
         return i;
     }
 };
+
+// R .75 | M .41
+class Solution2 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int end = 0;
+        int i = 0;
+        while(i < nums.size()) {
+            int curVal = nums[i];
+            nums[end++] = nums[i++];
+            if(i < nums.size() && nums[i] == curVal) {
+                nums[end++] = nums[i++];
+            }
+            while(i < nums.size() && nums[i] == curVal) {
+                i++;
+            }
+        }
+        return end;
+    }
+};
