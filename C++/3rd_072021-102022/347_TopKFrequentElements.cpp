@@ -62,3 +62,50 @@ public:
         return result;
     }
 };
+
+// R .64 | M .73
+class Solution2 {
+public:
+    unordered_map<int, int> numCnt;
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector<int> newNums;
+        for(int num : nums) {
+            if(numCnt[num] == 0) {
+                newNums.push_back(num);
+            }
+            numCnt[num]++;
+        }
+        int l = 0, r = newNums.size() - 1;
+        while(l <= r) {
+            int pos = partition(newNums, l, r);
+            if(r - pos + 1 == k) {
+                return {newNums.begin() + pos, newNums.end()};
+            }
+            else if(r - pos + 1 > k) {
+                l = pos + 1;
+            }
+            else {
+                k -= (r - pos + 1);
+                r = pos - 1;
+            }
+        }
+        return {};
+    }
+
+    int partition(vector<int>& nums, int l, int r) {
+        if(l == r) return l;
+        int pivot = nums[l];
+        while(l < r) {
+            while(l < r && numCnt[nums[r]] > numCnt[pivot]) {
+                r--;
+            }
+            nums[l] = nums[r];
+            while(l < r && numCnt[nums[l]] <= numCnt[pivot]) {
+                l++;
+            }
+            nums[r] = nums[l];
+        }
+        nums[l] = pivot;
+        return l;
+    }
+};

@@ -80,3 +80,43 @@ public:
         return nums[l];
     }
 };
+
+// R .12 | M .60
+class Solution2 {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int l = 0, r = nums.size() - 1;
+        while(l <= r) {
+            int p = partition(nums, l, r);
+            if(r - p + 1 == k) {
+                return nums[p];
+            }
+            else if(r - p + 1 > k) {
+                l = p + 1;
+            }
+            else {
+                k -= (r - p + 1);
+                r = p - 1;
+            }
+        }
+        return nums[l];
+    }
+
+    int partition(vector<int>& nums, int l, int r) {
+        if(l == r) return l;
+        int pivot = nums[l];
+        int i = l, j = r;
+        while(i < j) {
+            while(i < j && nums[j] > pivot) {
+                j--;
+            }
+            nums[i] = nums[j];
+            while(i < j && nums[i] <= pivot) {
+                i++;
+            }
+            nums[j] = nums[i];
+        }
+        nums[i] = pivot;
+        return i;
+    }
+};
