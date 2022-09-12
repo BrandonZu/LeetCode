@@ -23,3 +23,17 @@ public:
         return min(min(dp[n][0], dp[n][1]), dp[n][2]);
     }
 };
+
+// R .60 | M .61
+class Solution2 {
+public:
+    int minCost(vector<vector<int>>& costs) {
+        int dp[2][3] = {};
+        for(int i = 0; i < costs.size(); i++) {
+            for(int j = 0; j < 3; j++) {
+                dp[i % 2][j] = costs[i][j] + min(dp[(i + 1) % 2][(j + 1) % 3], dp[(i + 1) % 2][(j + 2) % 3]);
+            }
+        }
+        return min(dp[(costs.size() + 1) % 2][0], min(dp[(costs.size() + 1) % 2][1], dp[(costs.size() + 1) % 2][2]));
+    }
+};

@@ -116,3 +116,46 @@ public:
         return true;
     }
 };
+
+// R .30 | M .60
+class Solution3 {
+public:
+    bool flag = true;
+    vector<int> nodeStatus;
+    vector<vector<int>> graph;
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        graph.resize(numCourses);
+        nodeStatus.resize(numCourses, 0);
+
+        for(auto& edge : prerequisites) {
+            graph[edge[0]].push_back(edge[1]);
+        }
+        for(int i = 0; i < numCourses; i++) {
+            if(nodeStatus[i] == 0) {
+                dfs(i);
+            }
+            if(!flag) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void dfs(int start) {
+        if(!flag) {
+            return;
+        }
+        for(int j : graph[start]) {
+            if(nodeStatus[j] == 0) {
+                nodeStatus[j] = 1;
+                dfs(j);
+                nodeStatus[j] = 2;
+            }
+            else if(nodeStatus[j] == 1) {
+                flag = false;
+                return;
+            }
+        }
+    }
+};

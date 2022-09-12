@@ -31,3 +31,28 @@ public:
         return maxCap;
     }
 };
+
+// R .94 | M .37
+class Solution2 {
+public:
+    int maxArea(vector<int>& height) {
+        int res = 0;
+        int l = 0, r = height.size() - 1;
+        while(l < r) {
+            res = max(res, min(height[l], height[r]) * (r - l));
+            if(height[r] > height[l]) {
+                while(l < r && height[l] <= height[r]) {
+                    l++;
+                    res = max(res, min(height[l], height[r]) * (r - l));
+                }
+            }
+            else {
+                while(l < r && height[r] <= height[l]) {
+                    r--;
+                    res = max(res, min(height[l], height[r]) * (r - l));
+                }
+            }
+        }
+        return res;
+    }
+};

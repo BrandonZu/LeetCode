@@ -52,3 +52,40 @@ public:
         return ptrA;
     }
 };
+
+// R .92 | M .33
+class Solution3 {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* pA = headA, * pB = headB;
+        bool pAReset = false, pBReset = false;
+        while(pA != pB) {
+            if(pA->next) {
+                pA = pA->next;
+            }
+            else {
+                if(!pAReset) {
+                    pA = headB;
+                    pAReset = true;
+                }
+                else {
+                    break;
+                }
+            }
+
+            if(pB->next) {
+                pB = pB->next;
+            }
+            else {
+                if(!pBReset) {
+                    pB = headA;
+                    pBReset = true;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        return pA == pB ? pA : nullptr;
+    }
+};

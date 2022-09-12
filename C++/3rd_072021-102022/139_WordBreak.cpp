@@ -128,3 +128,23 @@ public:
         return dp[n];
     }
 };
+
+// R .53 | M .54
+class Solution2 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> wordSet(wordDict.begin(), wordDict.end());
+        int n = s.size();
+        vector<bool> dp(n,false);
+        for(int i = 0; i < n; i++) {
+            for(int j = i; j >= 0; j--) {
+                string lastStr = s.substr(j, i - j + 1);
+                if(wordSet.find(lastStr) != wordSet.end() && (j == 0 || dp[j - 1])) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[n - 1];
+    }
+};

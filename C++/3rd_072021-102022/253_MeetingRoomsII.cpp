@@ -69,3 +69,21 @@ public:
         return pq.size();
     }
 };
+
+// R .100 | M .69
+class Solution2 {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end());
+        size_t maxSize = 0;
+        priority_queue<int, vector<int>, greater<>> pq;
+        for(auto& interval : intervals) {
+            while(!pq.empty() && pq.top() <= interval[0]) {
+                pq.pop();
+            }
+            pq.push(interval[1]);
+            maxSize = max(maxSize, pq.size());
+        }
+        return (int)maxSize;
+    }
+};

@@ -40,3 +40,19 @@ public:
         return profit;
     }
 };
+
+// R .54 | M .60
+class Solution3 {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        vector<int> dp(2, 0);
+        dp[0] = 0, dp[1] = -prices[0];
+        for(int i = 1; i < n; i++) {
+            int dp_0 = dp[0];
+            dp[0] = max(dp[0], dp[1] + prices[i]);
+            dp[1] = max(dp[1], dp_0 - prices[i]);
+        }
+        return dp[0];
+    }
+};

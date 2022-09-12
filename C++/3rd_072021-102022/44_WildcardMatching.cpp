@@ -5,10 +5,10 @@
 #include "common.h"
 
 // Runtime 84ms(>34%) | Memory Usage 9.5MB(>67%)
-// dp[i][j] = dp[i - 1][j] || dp[i - 1][j - 1] || dp[i - 1][j - 2] ... || d[i - 1][0]
-// dp[i][j - 1] = dp[i - 1][j - 1] || dp[i - 1][j - 2] ... || d[i - 1][0]
-// dp[i][j] = dp[i - 1][j] || dp[i][j - 1]
 class Solution {
+    // dp[i][j] = dp[i - 1][j] || dp[i - 1][j - 1] || dp[i - 1][j - 2] ... || d[i - 1][0]
+    // dp[i][j - 1] = dp[i - 1][j - 1] || dp[i - 1][j - 2] ... || d[i - 1][0]
+    // dp[i][j] = dp[i - 1][j] || dp[i][j - 1]
 public:
     bool isMatch(string s, string p) {
         int m = s.size(), n = p.size();
@@ -63,5 +63,29 @@ public:
             }
         }
         return dp[p_len][s_len];
+    }
+};
+
+// R .42 | M .60
+class Solution3 {
+public:
+    bool isMatch(string s, string p) {
+        int n = s.size(), m = p.size();
+        vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, false));
+        dp[0][0] = true;
+        for(int j = 1; j <= m && p[j - 1] == '*'; j++) {
+            dp[0][j] = true;
+        }
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= m; j++) {
+                if(p[j - 1] == '*') {
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+                }
+                else {
+                    dp[i][j] = dp[i - 1][j - 1] && (p[j - 1] == '?' || s[i - 1] == p[j - 1]);
+                }
+            }
+        }
+        return dp[n][m];
     }
 };

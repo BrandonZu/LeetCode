@@ -39,3 +39,21 @@ public:
         return cur;
     }
 };
+
+// R .100 | M .53
+class Solution2 {
+public:
+    unordered_map<int, Node*> createdNode;
+    Node* cloneGraph(Node* node) {
+        if(!node) return nullptr;
+        Node* newNode = new Node(node->val);
+        createdNode[node->val] = newNode;
+        for(auto i : node->neighbors) {
+            if(createdNode.find(i->val) == createdNode.end())
+                newNode->neighbors.push_back(cloneGraph(i));
+            else
+                newNode->neighbors.push_back(createdNode[i->val]);
+        }
+        return newNode;
+    }
+};

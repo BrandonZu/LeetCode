@@ -33,3 +33,32 @@ public:
         return minLen == s.size() + 10 ? "" : s.substr(minPos, minLen);
     }
 };
+
+// R .30 | M .50
+class Solution2 {
+public:
+    string minWindow(string s, string t) {
+        if(t.empty()) return "";
+        unordered_map<char, int> targetCnt, winCnt;
+        for(char c : t) {
+            targetCnt[c]++;
+        }
+        int validCnt = 0;
+        int minLen = s.size() + 1, minPos = 0;
+        for(int l = 0, r = 0; r < s.size(); r++) {
+            winCnt[s[r]]++;
+            if(winCnt[s[r]] <= targetCnt[s[r]]) {
+                validCnt++;
+            }
+            while(l <= r && winCnt[s[l]] > targetCnt[s[l]]) {
+                winCnt[s[l]]--;
+                l++;
+            }
+            if(validCnt == t.size() && r - l + 1 < minLen) {
+                minPos = l;
+                minLen = r - l + 1;
+            }
+        }
+        return minLen > s.size() ? "" : s.substr(minPos, minLen);
+    }
+};

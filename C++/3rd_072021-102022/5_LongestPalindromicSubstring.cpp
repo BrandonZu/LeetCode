@@ -31,3 +31,26 @@ public:
     }
 };
 
+// R .81 | M .84
+class Solution2 {
+public:
+    string longestPalindrome(string s) {
+        int longestStart = 0, longestLen = 1;
+        for(int i = 0; i < s.size(); i++) {
+            int l = i, r = i;
+            while(r < s.size() && s[r] == s[l]) {
+                ++r;
+            }
+            --r;
+            while(l >= 0 && r < s.size() && s[l] == s[r]) {
+                --l, ++r;
+            }
+            ++l, --r;
+            if(r - l + 1 > longestLen) {
+                longestLen = r - l + 1;
+                longestStart = l;
+            }
+        }
+        return s.substr(longestStart, longestLen);
+    }
+};

@@ -49,7 +49,7 @@ class MedianFinder_MultiSet {
     multiset<int> numSet;
     multiset<int>::iterator med;
 public:
-    MedianFinder() {
+    MedianFinder_MultiSet() {
         size = 0;
     }
 
@@ -88,3 +88,39 @@ public:
     }
 };
 
+// R .92 | M .14
+class MedianFinder2 {
+    priority_queue<int> maxHeap;
+    priority_queue<int, vector<int>, greater<>> minHeap;
+public:
+    MedianFinder2() {
+
+    }
+
+    void addNum(int num) {
+        if(!minHeap.empty() && num > maxHeap.top()) {
+            minHeap.push(num);
+        }
+        else {
+            maxHeap.push(num);
+        }
+    }
+
+    double findMedian() {
+        int totalSize = minHeap.size() + maxHeap.size();
+        while(minHeap.size() < totalSize / 2) {
+            minHeap.push(maxHeap.top());
+            maxHeap.pop();
+        }
+        while(minHeap.size() > totalSize / 2) {
+            maxHeap.push(minHeap.top());
+            minHeap.pop();
+        }
+        if(totalSize % 2 == 0) {
+            return (minHeap.top() + maxHeap.top()) / 2.0;
+        }
+        else {
+            return maxHeap.top();
+        }
+    }
+};
